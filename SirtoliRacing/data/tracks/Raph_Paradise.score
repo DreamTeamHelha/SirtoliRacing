@@ -16,6 +16,10 @@
         "Time": 35569
     },
     {
+        "Name": "YOURNAME",
+        "Time": 44784
+    },
+    {
         "Name": "ZigZag",
         "Time": 57534
     },
@@ -34,9 +38,5 @@
     {
         "Name": "YOURNAME2",
         "Time": 40593
-    },
-    {
-        "Name": "YOURNAME",
-        "Time": 156800
     }
 ]

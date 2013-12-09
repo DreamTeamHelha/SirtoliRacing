@@ -1,5 +1,6 @@
 #include "choosewidget.h"
 #include "ui_choosewidget.h"
+#include "settings.h"
 
 ChooseWidget::ChooseWidget(QWidget *parent) :
     Panel(parent),
@@ -41,7 +42,9 @@ void ChooseWidget::previousTrack()
 
 void ChooseWidget::launchGame()
 {
-     emit startGame(m_trackList->currentTrack(), "Car");
+    Settings *_setting=new Settings;
+    _setting->setDynamicZoom(ui->cb_dynamicZoom->isChecked());
+    emit startGame(m_trackList->currentTrack(), "Car", _setting);
 }
 
 void ChooseWidget::backToMenu()

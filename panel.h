@@ -2,7 +2,7 @@
 
 #include <QFrame>
 #include <QString>
-
+#include "settings.h"
 class Panel : public QFrame
 {
     Q_OBJECT
@@ -19,6 +19,6 @@ signals:
     ///
     /// Provoque le lancement du jeu.
     ///
-    void startGame(const QString& levelName, const QString& carClassName);
+    void startGame(const QString& levelName, const QString& carClassName,Settings *setting);
 };
 

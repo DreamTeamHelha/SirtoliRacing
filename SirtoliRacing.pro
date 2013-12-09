@@ -82,7 +82,10 @@ SOURCES += \
     tracklist.cpp \
     choosewidget.cpp \
     scorewindow.cpp \
+<<<<<<< HEAD
     prestarttimer.cpp \
+=======
+>>>>>>> b30afa8101fbba20175f00225ab8aef8ea912ab8
     settings.cpp
 
 HEADERS += \
@@ -164,7 +167,10 @@ HEADERS += \
     tracklist.h \
     choosewidget.h \
     scorewindow.h \
+<<<<<<< HEAD
     prestarttimer.h \
+=======
+>>>>>>> b30afa8101fbba20175f00225ab8aef8ea912ab8
     settings.h
 
 FORMS += \

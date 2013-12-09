@@ -4,6 +4,7 @@
 #include <QString>
 #include "panel.h"
 #include "gamewidget.h"
+#include "settings.h"
 
 namespace Ui {
 class MainWindow;
@@ -38,7 +39,7 @@ public slots:
     ///
     /// Provoque le lancement du jeu.
     ///
-    void startGame(const QString& levelName, const QString& carClassName);
+    void startGame(const QString& levelName, const QString& carClassName,Settings *setting );
 
     ///
     /// Provoque la mise en pause du jeu

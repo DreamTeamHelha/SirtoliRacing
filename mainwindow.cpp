@@ -7,7 +7,7 @@
 #include "credits.h"
 #include "choosewidget.h"
 #include "scorewindow.h"
-
+#include "settings.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -82,12 +82,12 @@ void MainWindow::showPanel(const QString &menuName)
     if (m_panel)
     {
         connect(m_panel, SIGNAL(showPanel(QString)), this, SLOT(showPanel(QString)));
-        connect(m_panel, SIGNAL(startGame(QString,QString)), this, SLOT(startGame(QString,QString)));
+        connect(m_panel, SIGNAL(startGame(QString,QString,Settings*)), this, SLOT(startGame(QString,QString,Settings*)));
         m_panel->show();
     }
 }
 
-void MainWindow::startGame(const QString &levelName, const QString &carClassName)
+void MainWindow::startGame(const QString &levelName, const QString &carClassName, Settings *setting)
 {
     Scene *scene = new Scene;
     if (scene->load(levelName, carClassName))
@@ -105,6 +105,7 @@ void MainWindow::startGame(const QString &levelName, const QString &carClassName
             m_gameWidget->deleteLater();
             m_gameWidget = nullptr;
         }
+        scene->setDynamicZoom(setting->dynamicZoom());
 
         m_gameWidget = new GameWidget(scene, this);
         m_gameWidget->setGeometry(0,0,800,600);
@@ -118,6 +119,8 @@ void MainWindow::startGame(const QString &levelName, const QString &carClassName
         delete scene;
         QMessageBox::information(this, "Erreur", "Le chargement du niveau '" + levelName + "' avec le véhicule '" + carClassName + "' a échoué!", 0);
     }
+    //libération setting
+    delete setting;
 }
 
 void MainWindow::pauseGame(QTime)

@@ -14,7 +14,8 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
     m_checkpointRemainingLabel(this),
     m_paused(false),
     m_cameraScale(1.f),
-    m_frameCount(0)
+    m_frameCount(0),
+    m_timeBeforeStartLabel(this)
 {
     if (!scene)
     {
@@ -36,6 +37,9 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
         m_checkpointRemainingLabel.setGeometry(parent->width()-220,0,220,50);
         m_checkpointRemainingLabel.setStyleSheet("color: rgb(255, 47, 28);font: 14pt \"MS Shell Dlg 2\";");
 
+        m_timeBeforeStartLabel.setGeometry(350,250,100,100);
+        m_timeBeforeStartLabel.setStyleSheet("color: rgb(255, 47, 28);font: 72pt \"MS Shell Dlg 2\";");
+
         // prépare la scène pour l'affichage
         this->setScene(scene->graphicsScene());
         this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -48,9 +52,14 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
         // démarrage du timer de rafraichissement du jeu
         startTimer(sf::seconds(1/60.f).asMilliseconds());
 
-        //Démarrage du timer de temps
-        scene->start();
+        //Centrage de la caméra
+        View view = m_scene->calcViewPoint();
+        centerOn(view.position());
 
+        //Démarrage du timer de début de course ( 3,2,1 -> Go)
+        m_preStartTimer = new PreStartTimer(this);
+        m_preStartTimer->startTimer();
+        connect(m_preStartTimer,SIGNAL(startGame()),this,SLOT(startGame()));
 
     }
 }
@@ -60,6 +69,8 @@ GameWidget::~GameWidget()
     std::cout << "GameWidget deleted" << std::endl;
     if (m_scene)
         delete m_scene;
+    if(m_preStartTimer)
+        delete m_preStartTimer;
 }
 
 Scene *GameWidget::scene() const
@@ -138,48 +149,54 @@ void GameWidget::keyReleaseEvent(QKeyEvent *event)
 
 void GameWidget::timerEvent(QTimerEvent *timerEvent)
 {
-    if(!m_paused)
+    if(m_preStartTimer->timeRemaining())
     {
-        if (m_scene)
+        m_timeBeforeStartLabel.setText(QString::number(m_preStartTimer->timeRemaining()));
+    }
+    else{
+        if(!m_paused)
         {
-
-            if(m_scene->isFinished())
+            if (m_scene)
             {
-                killTimer(timerEvent->timerId());
-                emit showScore("Score");
-            }
-            else
-            {
-                /// mise à jour de la scène
-                m_scene->update();
 
-                 /// mise à jour de la caméra
-                View view = m_scene->calcViewPoint();
-                centerOn(view.position());
-                // "crante" l'effet de zoom, car visiblement, changer l'échelle de la vue dans qt prend du temps
-                // et ralenti considérablement le jeu lorsque cela est fait à chaque frame.
-                //float zoom = (int)(view.zoom()*200)/200.f;
-                //std::cout << view.zoom() << " --- " << zoom << " --- " << m_cameraScale << std::endl;
-                //view.setZoom(.7);
-                m_frameCount++;
-                if (m_frameCount == 3)
-                    m_frameCount = 0;
-                if (m_frameCount == 0)
+                if(m_scene->isFinished())
                 {
-                    if (view.zoom() != m_cameraScale)
-                    {
-                        float cameraScale = 1 - (m_cameraScale - view.zoom());
-                        m_cameraScale = view.zoom();
-                        scale(cameraScale, cameraScale);
-                    }
+                    killTimer(timerEvent->timerId());
+                    emit showScore("Score");
                 }
+                else
+                {
+                    /// mise à jour de la scène
+                    m_scene->update();
 
-                /// mise à jour du compteur (Affichage
-                m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));
+                     /// mise à jour de la caméra
+                    View view = m_scene->calcViewPoint();
+                    centerOn(view.position());
+                    // "crante" l'effet de zoom, car visiblement, changer l'échelle de la vue dans qt prend du temps
+                    // et ralenti considérablement le jeu lorsque cela est fait à chaque frame.
+                    //float zoom = (int)(view.zoom()*200)/200.f;
+                    //std::cout << view.zoom() << " --- " << zoom << " --- " << m_cameraScale << std::endl;
+                    //view.setZoom(.7);
+                    m_frameCount++;
+                    if (m_frameCount == 3)
+                        m_frameCount = 0;
+                    if (m_frameCount == 0)
+                    {
+                        if (view.zoom() != m_cameraScale)
+                        {
+                            float cameraScale = 1 - (m_cameraScale - view.zoom());
+                            m_cameraScale = view.zoom();
+                            scale(cameraScale, cameraScale);
+                        }
+                    }
 
-                /// mise à jour du nombre de checkpoint restant (Affichage)
-                QString checkpointRemainingString = "Checkpoint Restant(s) :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
-                m_checkpointRemainingLabel.setText(checkpointRemainingString);
+                    /// mise à jour du compteur (Affichage
+                    m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));
+
+                    /// mise à jour du nombre de checkpoint restant (Affichage)
+                    QString checkpointRemainingString = "Checkpoint Restant(s) :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
+                    m_checkpointRemainingLabel.setText(checkpointRemainingString);
+                }
             }
         }
     }
@@ -199,4 +216,13 @@ void GameWidget::pause()
 void GameWidget::setPaused(bool paused)
 {
     m_paused=paused;
+}
+
+void GameWidget::startGame()
+{
+    m_timeBeforeStartLabel.hide();
+  /*  m_timeBeforeStartLabel.close();
+    m_timeBeforeStartLabel.deleteLater();*/
+    m_scene->start();
+
 }

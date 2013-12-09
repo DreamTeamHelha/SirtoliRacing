@@ -5,6 +5,7 @@
 #include <playerinput.h>
 #include <QString>
 #include <QLabel>
+#include "prestarttimer.h"
 
 ///
 /// Widget servant à l'affichage et à la gestion d'un niveau.
@@ -32,6 +33,9 @@ public:
     void pause();
     void setPaused(bool paused);
 
+public slots:
+    void startGame();
+
 signals:
 
     void gamePaused(QTime);
@@ -51,12 +55,14 @@ protected:
 
 private:
 
-    QString      m_levelName;
-    Scene       *m_scene;
-    PlayerInput  m_playerInput;
-    QLabel       m_timeLabel;
-    QLabel       m_checkpointRemainingLabel;
-    bool         m_paused;
-    float        m_cameraScale;
-    unsigned     m_frameCount;
+    QString        m_levelName;
+    Scene         *m_scene;
+    PlayerInput    m_playerInput;
+    QLabel         m_timeLabel;
+    QLabel         m_checkpointRemainingLabel;
+    bool           m_paused;
+    float          m_cameraScale;
+    unsigned       m_frameCount;
+    PreStartTimer *m_preStartTimer;
+    QLabel         m_timeBeforeStartLabel;
 };

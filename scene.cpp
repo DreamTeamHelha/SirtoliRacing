@@ -18,10 +18,13 @@ Scene::Scene() :
     m_tilemap(nullptr),
     m_loaded(false),
     m_checkpointListener(new CheckpointListener),
-    m_time()
+    m_time(),
+    m_dynamicZoom(false)
 {
     //Ajout du listener de contact
     m_physicsWorld->SetContactListener(m_checkpointListener);
+
+    std::cout << "Zoom dynamique = " << m_dynamicZoom << std::endl;
 }
 
 Scene::~Scene()
@@ -224,6 +227,7 @@ View Scene::calcViewPoint()
     View view;
     if (m_car)
     {
+        // calcul du point de vue
         Vector viewPoint;
         viewPoint = Vector(m_car->physicsBody()->GetPosition());
         viewPoint += Vector(m_car->physicsBody()->GetLinearVelocity()) * 0.5f;
@@ -237,18 +241,23 @@ View Scene::calcViewPoint()
         }
         view.setPosition(viewPoint);
 
-        //*
-        float velocity = (Vector(m_car->physicsBody()->GetLinearVelocity()).length() / 1500.f) + 1;
-        if (velocity > 0)
+        // calcul du zoom
+        if (m_dynamicZoom)
         {
-            view.setZoom(1 / velocity);
-            std::cout << "velocity:" << velocity << " -> zoom:" << view.zoom() << std::endl;
+            float velocity = (Vector(m_car->physicsBody()->GetLinearVelocity()).length() / 1500.f) + 1;
+            if (velocity > 0)
+            {
+                view.setZoom(1 / velocity);
+            }
+            else
+            {
+                view.setZoom(1.f);
+            }
         }
         else
         {
-            view.setZoom(1.f);
+            view.setZoom(0.7f);
         }
-        //*/
     }
 
     m_view = View::interp(m_view, view, 0.1);
@@ -290,4 +299,14 @@ void Scene::setTime(int time)
 const QString Scene::trackName() const
 {
     return m_trackName;
+}
+
+bool Scene::dynamicZoom() const
+{
+    return m_dynamicZoom;
+}
+
+void Scene::setDynamicZoom(bool enabled)
+{
+    m_dynamicZoom = enabled;
 }

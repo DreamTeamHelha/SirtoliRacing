@@ -166,7 +166,6 @@ void GameWidget::timerEvent(QTimerEvent *timerEvent)
                     m_frameCount = 0;
                 if (m_frameCount == 0)
                 {
-                    std::cout << "Application du zoom" << std::endl;
                     if (view.zoom() != m_cameraScale)
                     {
                         float cameraScale = 1 - (m_cameraScale - view.zoom());

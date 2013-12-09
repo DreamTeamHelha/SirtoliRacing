@@ -29,6 +29,9 @@ public:
     QGraphicsScene *graphicsScene() const;
     b2World        *physicsWorld () const;
 
+    bool dynamicZoom() const;
+    void setDynamicZoom(bool enabled);
+
     ///
     /// Charge la scène
     ///
@@ -110,6 +113,7 @@ private:
     QTime                m_time;
     View                 m_view;
     QString              m_trackName;
+    bool                 m_dynamicZoom;
 
     ///
     /// Permet de charger la map

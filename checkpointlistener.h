@@ -9,6 +9,10 @@ private:
 public:
     CheckpointListener();
 
+    CheckpointListener(const CheckpointListener &checkList);
+
+    CheckpointListener& operator=(const CheckpointListener &checkList);
+
     ///Méthode appelée au début du contact entre 2 objets
     void BeginContact (b2Contact *contact);
 

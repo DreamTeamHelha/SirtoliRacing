@@ -19,6 +19,18 @@ ObjectLoader::ObjectLoader(Scene *scene, const QString &carClassName) :
 {
 }
 
+ObjectLoader::ObjectLoader(const ObjectLoader &copy):m_scene(copy.m_scene),m_carClassName(copy.m_carClassName){}
+
+ObjectLoader& ObjectLoader::operator=(const ObjectLoader &objLoad){
+     if(this!=&objLoad){
+         this->m_scene=objLoad.m_scene;
+         this->m_carClassName=objLoad.m_carClassName;
+     }
+     return *this;
+ }
+
+
+
 Scene *ObjectLoader::scene()const
 {
     return m_scene;

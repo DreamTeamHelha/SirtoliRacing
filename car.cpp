@@ -21,6 +21,16 @@ Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 {
 }
 
+Car::Car(const Car & copy) : Object::Object(copy)
+{
+    m_tilemap=copy.m_tilemap;
+    m_accelRate[GroundType::_count]=copy.m_accelRate[GroundType::_count];
+    m_brakeRate[GroundType::_count]=copy.m_brakeRate[GroundType::_count];
+    m_maxTorque[GroundType::_count]=copy.m_maxTorque[GroundType::_count];
+    m_angularAccel[GroundType::_count]=copy.m_angularAccel[GroundType::_count];
+    m_maxLateralFriction[GroundType::_count]=copy.m_maxLateralFriction[GroundType::_count];
+}
+
 Tilemap* Car::tilemap() const
 {
     return m_tilemap;

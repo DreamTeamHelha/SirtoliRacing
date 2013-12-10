@@ -8,6 +8,10 @@ class Tree : public Object
 public:
     Tree(QGraphicsItem *graphicsItem, b2Body *physicsBody);
 
+    Tree(const Tree &copy);
+
+    Tree& operator =(const Tree &t);
+
 };
 
 class TreeFactory : public ObjectFactory

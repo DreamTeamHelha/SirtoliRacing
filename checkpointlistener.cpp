@@ -8,6 +8,17 @@ CheckpointListener::CheckpointListener():
 {
 }
 
+CheckpointListener::CheckpointListener(const CheckpointListener &checkList){
+    m_checkpointRemaining=checkList.m_checkpointRemaining;
+}
+
+CheckpointListener& CheckpointListener::operator =(const CheckpointListener &checkList){
+    if(this!=&checkList){
+        m_checkpointRemaining=checkList.m_checkpointRemaining;
+    }
+    return *this;
+}
+
 void CheckpointListener::BeginContact (b2Contact *contact)
 {
     void *dataCar = contact->GetFixtureA()->GetUserData();

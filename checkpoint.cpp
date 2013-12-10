@@ -10,6 +10,18 @@ Checkpoint::Checkpoint(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 {
 }
 
+Checkpoint::Checkpoint(const Checkpoint & copy) :Object::Object(copy),
+    m_touched(copy.m_touched)
+{}
+
+Checkpoint& Checkpoint::operator =(const Checkpoint &check){
+    if(this!=&check){
+        Object::operator =(check);
+        m_touched=check.m_touched;
+    }
+    return *this;
+}
+
 Object* CheckpointFactory::create() const
 {
     using utils::toRadians;

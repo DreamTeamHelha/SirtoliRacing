@@ -13,6 +13,9 @@ public:
     {
         setAngle(radangle);
     }
+    Rotation(const Rotation &r);
+
+    Rotation &operator=(const Rotation &r);
 
     virtual ~Rotation()
     {}

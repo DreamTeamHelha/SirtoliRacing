@@ -7,6 +7,20 @@ Object::Object(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 {
 }
 
+Object::Object(const Object & copy){
+    this->m_graphicsItem=copy.m_graphicsItem;
+    this->m_physicsBody=copy.m_physicsBody;
+
+}
+Object& Object::operator=(const Object &obj){
+    if(this!=&obj){
+        this->m_graphicsItem=obj.m_graphicsItem;
+        this->m_physicsBody=obj.m_physicsBody;
+
+    }
+    return *this;
+}
+
 Object::~Object()
 {
     // rien à faire

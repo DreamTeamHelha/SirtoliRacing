@@ -10,6 +10,17 @@ Rotation::operator Vector() const
     return Vector(std::cos(m_angle), std::sin(m_angle));
 }
 
+Rotation::Rotation(const Rotation &r){
+    this->m_angle=r.m_angle;
+}
+
+Rotation& Rotation::operator=(const Rotation &r){
+    if(this!=&r){
+        this->m_angle=r.m_angle;
+    }
+    return *this;
+}
+
 void Rotation::setAngle(float radangle)
 {
     m_angle = radangle;

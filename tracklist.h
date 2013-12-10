@@ -10,6 +10,11 @@ private:
     int              m_currentIndex;
 public:
     TrackList(int currentIndex=0);
+
+    TrackList(const   TrackList &copy);
+
+    TrackList& operator=(const   TrackList &copy);
+
     ~TrackList();
     ///
     /// Modifie la liste de circuits

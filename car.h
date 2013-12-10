@@ -8,7 +8,11 @@ class Car : public Object
 {
 public:
 
-    Car(QGraphicsItem *graphicsItem, b2Body *physicsBody);
+    Car(QGraphicsItem *graphicsItem=nullptr, b2Body *physicsBody=nullptr);
+
+    Car(const Car &copy);
+
+    Car& operator =(const Car &car);
 
     void step(qreal throttle, qreal brakes, qreal steering);
 

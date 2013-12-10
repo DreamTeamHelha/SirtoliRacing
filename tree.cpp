@@ -10,6 +10,12 @@ Tree::Tree(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 {
 }
 
+Tree::Tree(const Tree &copy):Object::Object(copy){}
+
+Tree& Tree::operator =(const Tree &t){
+    Object::operator =(t);
+}
+
 Object* TreeFactory::create() const
 {
     using utils::toRadians;

@@ -16,7 +16,9 @@ public:
     /// - physicsBody est le composant physique de l'objet, servant aux calculs de collision.
     /// La libération de la mémoire des deux composants n'est pas prise en charge par la classe Object.
     ///
-    Object(QGraphicsItem *graphicsItem, b2Body *physicsBody);
+    Object(QGraphicsItem *graphicsItem=nullptr, b2Body *physicsBody=nullptr);
+    Object(const Object & copy);
+    Object& operator=(const Object &obj);
     virtual ~Object();
 
     ///

@@ -7,7 +7,12 @@ class Checkpoint : public Object
 private:
     bool m_touched;
 public:
-    Checkpoint(QGraphicsItem *graphicsItem, b2Body *physicsBody);
+    Checkpoint(QGraphicsItem *graphicsItem=nullptr, b2Body *physicsBody=nullptr);
+
+    Checkpoint(const Checkpoint & copy);
+
+    Checkpoint& operator =(const Checkpoint & check);
+
 
     ///Permet de spécifier au Checkpoint qu'il est touché
     void touch();

@@ -12,7 +12,11 @@ class ObjectLoader
 {
 public:
 
-    ObjectLoader(Scene *scene, const QString& carClassName);
+    ObjectLoader(Scene *scene=nullptr, const QString& carClassName=nullptr);
+
+    ObjectLoader(const ObjectLoader &copy);
+
+    ObjectLoader& operator=(const ObjectLoader &copy);
 
     ///
     /// Scène dans laquelle les objets doivent être créés.

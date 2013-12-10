@@ -11,6 +11,16 @@ Box::Box(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 {
 }
 
+Box::Box(const Box & copy) : Object::Object(copy)
+{}
+
+Box& Box::operator =(const Box &copy){
+
+       Object::operator =(copy);
+
+
+}
+
 Object* BoxFactory::create() const
 {
     using utils::toRadians;

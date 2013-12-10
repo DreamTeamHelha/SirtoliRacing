@@ -13,6 +13,21 @@ TrackList::TrackList(int currentIndex):
     m_trackList = QVector<QString>();
     m_nameList = QVector<QString>();
 }
+TrackList::TrackList(const TrackList &t){
+    m_currentIndex=t.m_currentIndex;
+    m_trackList=t.m_trackList;
+    m_nameList=t.m_nameList;
+}
+
+TrackList& TrackList::operator =(const TrackList &t){
+    if(this!=&t){
+        m_currentIndex=t.m_currentIndex;
+        m_trackList=t.m_trackList;
+        m_nameList=t.m_nameList;
+
+    }
+    return *this;
+}
 
 TrackList::~TrackList()
 {}

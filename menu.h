@@ -26,5 +26,6 @@ private slots:
 private:
 
     Ui::Menu *ui;
-    QSound   *m_soundMenu;
+
+
 };

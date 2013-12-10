@@ -71,6 +71,7 @@ GameWidget::~GameWidget()
         delete m_scene;
     if(m_preStartTimer)
         delete m_preStartTimer;
+
 }
 
 Scene *GameWidget::scene() const

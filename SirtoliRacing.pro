@@ -83,7 +83,8 @@ SOURCES += \
     choosewidget.cpp \
     scorewindow.cpp \
     prestarttimer.cpp \
-    settings.cpp
+    settings.cpp \
+    jukebox.cpp
 
 HEADERS += \
     scene.h \
@@ -165,7 +166,8 @@ HEADERS += \
     choosewidget.h \
     scorewindow.h \
     prestarttimer.h \
-    settings.h
+    settings.h \
+    jukebox.h
 
 FORMS += \
     gamewindow.ui \

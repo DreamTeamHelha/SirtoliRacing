@@ -8,17 +8,26 @@
 #include "choosewidget.h"
 #include "scorewindow.h"
 #include "settings.h"
+#include <QSound>
+#include"jukebox.h"
+#include<QKeyEvent>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_panel(nullptr),
-    m_gameWidget(nullptr)
+    m_gameWidget(nullptr),
+    m_musicPlay(true),
+    m_JukeBox(nullptr)
 {
     ui->setupUi(this);
-    /* TEST
-    QPixmap cursor(QCoreApplication::applicationDirPath() + "/data/carSirto.png");
-    this->setCursor( QCursor(cursor,0,0) );
-    */
+
+    if(!m_JukeBox)
+    {
+        m_JukeBox=new JukeBox();
+        m_JukeBox->load();
+        m_JukeBox->playSong(m_JukeBox->currentTrack());
+    }
+
 
     showPanel("Menu");
 }
@@ -26,6 +35,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    if(m_JukeBox)
+    {
+        delete m_JukeBox;
+        m_JukeBox=nullptr;
+    }
 }
 
 Panel *MainWindow::panel() const
@@ -143,5 +157,65 @@ void MainWindow::continueGame()
     m_panel = nullptr;
     m_gameWidget->setCursor(Qt::BlankCursor);
     m_gameWidget->setPaused(false);
+
+}
+
+void MainWindow::nextTrack()
+{
+
+    m_JukeBox->next();
+
+    m_JukeBox->playSong(m_JukeBox->currentTrack());
+
+
+
+
+}
+
+
+void MainWindow::previousTrack()
+{
+
+    m_JukeBox->previous();
+
+    m_JukeBox->playSong(m_JukeBox->currentTrack());
+
+
+
+}
+
+
+void MainWindow::playStopTrack()
+{
+    if(m_musicPlay==true)
+    {
+         m_JukeBox->stopPlay();
+         m_musicPlay=false;
+    }
+    else
+    {
+       m_JukeBox->playSong(m_JukeBox->currentTrack());
+        m_musicPlay=true;
+    }
+}
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key())
+    {
+    case Qt::Key_S:
+        MainWindow::playStopTrack();
+        break;
+
+    case Qt::Key_P:
+        MainWindow::previousTrack();
+        break;
+
+    case Qt::Key_N:
+        MainWindow::nextTrack();
+        break;
+
+    default:
+         QMainWindow::keyReleaseEvent(event);
+    }
 
 }

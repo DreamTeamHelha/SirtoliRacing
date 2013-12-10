@@ -5,7 +5,7 @@
 #include "panel.h"
 #include "gamewidget.h"
 #include "settings.h"
-
+#include "jukebox.h"
 namespace Ui {
 class MainWindow;
 }
@@ -50,6 +50,25 @@ public slots:
     /// Provoque la fin de la pause
     ///
     void continueGame();
+    ///
+    /// Appel la musique suivante
+    ///
+    void nextTrack();
+    ///
+    /// Appel la musique précédente
+    ///
+    void previousTrack();
+    ///
+    /// Stop la musique
+    ///
+    void playStopTrack();
+
+protected:
+    ///
+    /// Gère les événements du clavier
+    ///
+    void keyPressEvent(QKeyEvent *event);
+
 
 
 private:
@@ -58,5 +77,7 @@ private:
 
     Panel      *m_panel;
     GameWidget *m_gameWidget;
+    JukeBox *m_JukeBox;
+    bool m_musicPlay;
 };
 

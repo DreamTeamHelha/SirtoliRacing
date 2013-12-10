@@ -9,6 +9,7 @@
 #include "scene.h"
 #include <QCoreApplication>
 #include <QMessageBox>
+#include "tilemap.h"
 
 Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
     Object(graphicsItem, physicsBody),
@@ -22,7 +23,7 @@ Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 
 Car::Car(const Car & copy) : Object::Object(copy)
 {
-    m_tilemap=copy.m_tilemap;
+    m_tilemap=new Tilemap(*copy.m_tilemap);
     for(int i=0;i<GroundType::_count;i++)
     {
         m_accelRate[i]=copy.m_accelRate[i];
@@ -31,6 +32,24 @@ Car::Car(const Car & copy) : Object::Object(copy)
         m_angularAccel[i]=copy.m_angularAccel[i];
         m_maxLateralFriction[i]=copy.m_maxLateralFriction[i];
     }
+}
+
+Car& Car::operator =(const Car &other)
+{
+    if(this != &other)
+    {
+        delete m_tilemap;
+        m_tilemap = new Tilemap(*other.m_tilemap);
+        for(int i=0;i<GroundType::_count;i++)
+        {
+            m_accelRate [i]         = other.m_accelRate [i] ;
+            m_brakeRate [i]          = other.m_brakeRate [i] ;
+            m_maxTorque [i]          = other.m_maxTorque [i] ;
+            m_angularAccel [i]       = other.m_angularAccel [i] ;
+            m_maxLateralFriction [i]  = other.m_maxLateralFriction [i] ;
+        }
+    }
+    return *this;
 }
 
 Car::~Car()

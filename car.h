@@ -21,7 +21,7 @@ public:
     ///
     /// Opérateur d'affectation
     ///
-    Car& operator =(const Car &car);
+    Car& operator=(const Car &car);
 
     ///
     /// Destructeur

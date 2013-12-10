@@ -1,6 +1,6 @@
-#include "formtools.h"
-#include "ui_formtools.h"
-#include "menu.h"
+#include "scorewidget.h"
+#include "ui_scorewidget.h"
+#include "menuwidget.h"
 #include <iostream>
 #include"utils.h"
 #include"tracklist.h"
@@ -11,9 +11,10 @@
 #include"QJsonObject"
 #include"QList"
 #include"QFile"
-FormTools::FormTools(QWidget *parent) :
+
+ScoreWidget::ScoreWidget(QWidget *parent) :
     Panel(parent),
-    ui(new Ui::FormTools)
+    ui(new Ui::ScoreWidget)
 {
     ui->setupUi(this);
 
@@ -24,24 +25,23 @@ FormTools::FormTools(QWidget *parent) :
     m_trackList = new TrackList();
     m_trackList->load();
 
-    //ui->trackPicture->setPixmap(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack());
     ui->trackName->setText(m_trackList->currentTrackName());
     load();
 }
 
 
-FormTools::~FormTools()
+ScoreWidget::~ScoreWidget()
 {
-    std::cout << "FormTools deleted" << std::endl;
     delete ui;
     delete m_trackList;
 }
 
-void FormTools::afficherMenu()
+void ScoreWidget::afficherMenu()
 {
     emit showPanel("Menu");
 }
-void FormTools::load()
+
+void ScoreWidget::load()
 {
     //Lecture du fichier de score
     QFile file(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack() +".score");
@@ -66,7 +66,7 @@ void FormTools::load()
     QList<QStandardItem*> colTime;
     QList<QStandardItem*> colName;
 
-
+    //Remplissage de la liste des scores dans la listView
     QJsonArray root = document.array();
     for(int i=0;i<root.count();i++)
     {
@@ -87,7 +87,7 @@ void FormTools::load()
 
 
 }
-void FormTools::nextTrack()
+void ScoreWidget::nextTrack()
 {
     m_trackList->next();
     //ui->trackPicture->setPixmap(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack());
@@ -96,7 +96,7 @@ void FormTools::nextTrack()
     load();
 }
 
-void FormTools::previousTrack()
+void ScoreWidget::previousTrack()
 {
     m_trackList->previous();
     //ui->trackPicture->setPixmap(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack());

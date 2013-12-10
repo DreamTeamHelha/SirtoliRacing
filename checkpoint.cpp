@@ -7,15 +7,16 @@
 
 Checkpoint::Checkpoint(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
     Object(graphicsItem, physicsBody),m_touched(false)
-{
-}
+{}
 
 Checkpoint::Checkpoint(const Checkpoint & copy) :Object::Object(copy),
     m_touched(copy.m_touched)
 {}
 
-Checkpoint& Checkpoint::operator =(const Checkpoint &check){
-    if(this!=&check){
+Checkpoint& Checkpoint::operator=(const Checkpoint &check)
+{
+    if(this != &check)
+    {
         Object::operator =(check);
         m_touched=check.m_touched;
     }

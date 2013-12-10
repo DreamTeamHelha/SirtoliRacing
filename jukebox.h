@@ -1,12 +1,30 @@
-#ifndef JUKEBOX_H
-#define JUKEBOX_H
+#pragma once
+
 #include "QVector"
 #include "QSound"
 class JukeBox
 {
 public:
+    ///
+    /// Constructeur
+    ///
     JukeBox(int currentIndex=0);
+
+    ///
+    /// Destructeur
+    ///
     ~JukeBox();
+
+    ///
+    /// Constructeur de copie
+    ///
+    JukeBox(const JukeBox& copy);
+
+    ///
+    /// Opérateur d'affectation
+    ///
+    JukeBox& operator=(const JukeBox& other);
+
     ///
     /// Modifie la liste de musiques
     ///
@@ -32,24 +50,20 @@ public:
     ///
     QString currentTrack()const;
 
-    ///
-    /// Renvoie la musique à afficher de la musique courante
-    ///
-    QString currentTrackName()const;
 
     ///
-    /// Permet de charger la liste des circuits et de leur nom à afficher
+    /// Permet de charger la liste des musiques
     ///
     ///
     void load();
+
     ///
-    /// \brief playSong
-    /// \param musicName
-    ///Permet je jouer le song, detruit le song précédent s'il existe
+    ///Permet de jouer une chanson, detruit le song précédent si elle existe
     ///
     void playSong(QString musicName);
+
     ///
-    ///Permet de couper le son TOTALEMENT
+    ///Permet de couper la musique
     ///
     void stopPlay();
 
@@ -61,18 +75,20 @@ private:
 
 
     QVector<QString> m_trackList;
-    QVector<QString> m_nameList;
     int              m_currentIndex;
     QSound           *m_sound;
 
 private slots:
+
+    ///
+    /// Joue la chanson suivante
+    ///
     void nextTrack();
 
     ///
-    /// Affiche le circuit précédent
+    /// Joue la chanson précédente
     ///
     void previousTrack();
 
 };
 
-#endif // JUKEBOX_H

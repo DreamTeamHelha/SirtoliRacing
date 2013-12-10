@@ -1,5 +1,4 @@
-#ifndef CREDITS_H
-#define CREDITS_H
+#pragma once
 
 #include <QWidget>
 #include "panel.h"
@@ -12,12 +11,24 @@ class credits : public Panel
     Q_OBJECT
 
 public:
+
+    ///
+    /// Constructeur
+    ///
     explicit credits(QWidget *parent = 0);
+
+    ///
+    /// Destructeur
+    ///
     ~credits();
 public slots:
+
+    ///
+    /// Slot permettant de retourner au menu principal
+    ///
     void afficherMenu();
+
 private:
     Ui::credits *ui;
 };
 
-#endif // CREDITS_H

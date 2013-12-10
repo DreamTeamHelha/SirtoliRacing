@@ -1,7 +1,8 @@
 #include "credits.h"
 #include "ui_credits.h"
-#include "menu.h"
+#include "menuwidget.h"
 #include <iostream>
+
 credits::credits(QWidget *parent) :
     Panel(parent),
     ui(new Ui::credits)
@@ -16,6 +17,5 @@ credits::~credits()
 }
 void credits::afficherMenu()
 {
-    std::cout<<"Button clicked"<<std::endl;
     emit showPanel("Menu");
 }

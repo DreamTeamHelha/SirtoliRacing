@@ -70,10 +70,7 @@ SOURCES += \
     checkpointlistener.cpp \
     objectloader.cpp \
     gamewidget.cpp \
-    menu.cpp \
-    formtools.cpp \
     mainwindow.cpp \
-    menuingame.cpp \
     view.cpp \
     panel.cpp \
     score.cpp \
@@ -84,7 +81,9 @@ SOURCES += \
     scorewindow.cpp \
     prestarttimer.cpp \
     settings.cpp \
-    jukebox.cpp
+    jukebox.cpp \
+    scorewidget.cpp \
+    menuwidget.cpp
 
 HEADERS += \
     scene.h \
@@ -153,28 +152,26 @@ HEADERS += \
     objectloader.h \
     utils.h \
     gamewidget.h \
-    menu.h \
     mainwindow.h \
-    menuingame.h \
     view.h \
     panel.h \
     score.h \
     pausemenu.h \
-    formtools.h \
     credits.h \
     tracklist.h \
     choosewidget.h \
     scorewindow.h \
     prestarttimer.h \
     settings.h \
-    jukebox.h
+    jukebox.h \
+    scorewidget.h \
+    menuwidget.h
 
 FORMS += \
     gamewindow.ui \
-    formtools.ui \
     mainwindow.ui \
-    menu.ui \
-    menuingame.ui \
     credits.ui \
     choosewidget.ui \
-    scorewindow.ui
+    scorewindow.ui \
+    scorewidget.ui \
+    menuwidget.ui

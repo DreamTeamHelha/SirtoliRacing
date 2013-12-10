@@ -9,6 +9,14 @@
     },
     {
         "Name": "Raph",
+        "Time": 36051
+    },
+    {
+        "Name": "YOURNAME",
+        "Time": 36786
+    },
+    {
+        "Name": "Raph",
         "Time": 37472
     },
     {
@@ -30,13 +38,5 @@
     {
         "Name": "Seb",
         "Time": 61044
-    },
-    {
-        "Name": "YOURNAME",
-        "Time": 66708
-    },
-    {
-        "Name": "YOURNAME",
-        "Time": 39446
     }
 ]

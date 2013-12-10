@@ -18,9 +18,9 @@ public:
     Checkpoint(const Checkpoint & copy);
 
     ///
+    /// Opérateur d'affectation
     ///
-    ///
-    Checkpoint& operator =(const Checkpoint & check);
+    Checkpoint& operator=(const Checkpoint & check);
 
 
     ///Permet de spécifier au Checkpoint qu'il est touché

@@ -13,9 +13,14 @@ Box::Box(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 Box::Box(const Box & copy) : Object::Object(copy)
 {}
 
-Box& Box::operator =(const Box &copy)
+Box& Box::operator=(const Box &copy)
 {
-       Object::operator =(copy);
+    if(this != &copy)
+    {
+        Object::operator=(copy);
+    }
+    return *this;
+
 }
 
 Box::~Box()

@@ -13,18 +13,16 @@ Object::Object(const Object & copy){
 
 }
 Object& Object::operator=(const Object &obj){
-    if(this!=&obj){
-        this->m_graphicsItem=obj.m_graphicsItem;
-        this->m_physicsBody=obj.m_physicsBody;
-
+    if(this != &obj)
+    {
+        this->m_graphicsItem = obj.m_graphicsItem;
+        this->m_physicsBody =  new b2Body(*obj.m_physicsBody);
     }
     return *this;
 }
 
 Object::~Object()
-{
-    // rien à faire
-}
+{}
 
 
 QGraphicsItem *Object::graphicsItem() const

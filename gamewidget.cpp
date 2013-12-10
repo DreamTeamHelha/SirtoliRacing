@@ -37,6 +37,7 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
         m_checkpointRemainingLabel.setGeometry(parent->width()-220,0,220,50);
         m_checkpointRemainingLabel.setStyleSheet("color: rgb(255, 47, 28);font: 14pt \"MS Shell Dlg 2\";");
 
+        //Placement du label du affichant le temps avant le début de la partie
         m_timeBeforeStartLabel.setGeometry(350,250,100,100);
         m_timeBeforeStartLabel.setStyleSheet("color: rgb(255, 47, 28);font: 72pt \"MS Shell Dlg 2\";");
 
@@ -66,7 +67,6 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
 
 GameWidget::~GameWidget()
 {
-    std::cout << "GameWidget deleted" << std::endl;
     if (m_scene)
         delete m_scene;
     if(m_preStartTimer)
@@ -150,21 +150,24 @@ void GameWidget::keyReleaseEvent(QKeyEvent *event)
 
 void GameWidget::timerEvent(QTimerEvent *timerEvent)
 {
+    //Vérifie si la partie a déjà commencé ou non
     if(m_preStartTimer->timeRemaining())
     {
         m_timeBeforeStartLabel.setText(QString::number(m_preStartTimer->timeRemaining()));
     }
     else{
+        //Vérifie si le jeu est en pause ou non
         if(!m_paused)
         {
             if (m_scene)
             {
-
+                //Vérifie si le jeu est en pause
                 if(m_scene->isFinished())
                 {
                     killTimer(timerEvent->timerId());
-                    emit showScore("Score");
+                    emit showScore("EndGame");
                 }
+                //Gère les actions dans le cas où la partie est en cours
                 else
                 {
                     /// mise à jour de la scène
@@ -222,8 +225,6 @@ void GameWidget::setPaused(bool paused)
 void GameWidget::startGame()
 {
     m_timeBeforeStartLabel.hide();
-  /*  m_timeBeforeStartLabel.close();
-    m_timeBeforeStartLabel.deleteLater();*/
     m_scene->start();
 
 }

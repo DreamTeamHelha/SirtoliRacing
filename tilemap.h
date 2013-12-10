@@ -22,6 +22,26 @@ class Tilemap
 public:
 
     ///
+    /// Constructeur par défaut
+    ///
+    Tilemap();
+
+    ///
+    /// Constructeur de copie
+    ///
+    Tilemap(const Tilemap& other);
+
+    ///
+    /// Destructeur
+    ///
+    ~Tilemap();
+
+    ///
+    /// Opérateur d'affectation
+    ///
+    Tilemap operator=(const Tilemap& other);
+
+    ///
     /// Retourne le type de sol à la case (x; y).
     /// Si la case indiquée se trouve en dehors des limites de la map, la valeur GroundTYpe::Grass est retournée par défaut.
     ///
@@ -52,6 +72,6 @@ public:
 
 private:
 
-    // tuiles[ligne][colonne]
+    // tuiles <ligne <colonne> >
     std::vector<std::vector<GroundType>> m_tiles;
 };

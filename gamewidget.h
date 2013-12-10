@@ -21,6 +21,10 @@ public:
     /// et sera détruite avec le GameWidget.
     ///
     GameWidget(Scene *scene, QWidget *parent=nullptr);
+
+    ///
+    /// Destructeur
+    ///
     ~GameWidget();
 
     ///
@@ -30,10 +34,21 @@ public:
     const PlayerInput & playerInput() const;
     bool paused()       const;
 
-    void pause();
+    ///
+    /// Setter
+    ///
     void setPaused(bool paused);
 
+    ///
+    /// Permet de mettre le jeu en pause
+    ///
+    void pause();
+
 public slots:
+
+    ///
+    /// Démarre la partie
+    ///
     void startGame();
 
 signals:

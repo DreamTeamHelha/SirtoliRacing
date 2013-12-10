@@ -7,6 +7,8 @@ ChooseWidget::ChooseWidget(QWidget *parent) :
     ui(new Ui::ChooseWidget)
 {
     ui->setupUi(this);
+
+    //Connecte les actions des différents boutons
     connect(ui->nextButton,SIGNAL(clicked()),this,SLOT(nextTrack()));
     connect(ui->previousButton,SIGNAL(clicked()),this,SLOT(previousTrack()));
     connect(ui->startButton,SIGNAL(clicked()),this,SLOT(launchGame()));

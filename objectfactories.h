@@ -21,7 +21,7 @@ public:
     static void initialize();
 
     ///
-    /// Retourne la factory portant le nom
+    /// Retourne la factory portant le nom passé en argument
     ///
     static ObjectFactory *getFactory(const QString& factoryName);
 

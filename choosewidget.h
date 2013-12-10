@@ -1,5 +1,4 @@
-#ifndef CHOOSEWIDGET_H
-#define CHOOSEWIDGET_H
+#pragma once
 
 #include <QWidget>
 #include "tracklist.h"
@@ -14,14 +13,24 @@ class ChooseWidget : public Panel
     Q_OBJECT
 
 public:
+
+    ///
+    /// Constructeur
+    ///
     explicit ChooseWidget(QWidget *parent = 0);
+
+    ///
+    ///Destructeur
+    ///
     ~ChooseWidget();
 
 private slots:
+
     ///
-    /// Lance le jeu avec le circuit (et la voiture) choisis
+    /// Lance le jeu avec le circuit choisis
     ///
     void launchGame();
+
     ///
     /// Affiche le circuit suivant
     ///
@@ -42,4 +51,3 @@ private:
     TrackList        *m_trackList;
 };
 
-#endif // CHOOSEWIDGET_H

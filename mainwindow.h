@@ -20,7 +20,14 @@ class MainWindow : public QMainWindow
 
 public:
 
+    ///
+    /// Constructeur
+    ///
     explicit MainWindow(QWidget *parent = 0);
+
+    ///
+    /// Destructeur
+    ///
     ~MainWindow();
 
     ///

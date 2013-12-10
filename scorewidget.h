@@ -3,22 +3,34 @@
 #include "panel.h"
 #include "tracklist.h"
 namespace Ui {
-class FormTools;
+class ScoreWidget;
 }
 
-class FormTools : public Panel
+class ScoreWidget : public Panel
 {
     Q_OBJECT
 
 public:
-    explicit FormTools(QWidget *parent = 0);
-    ~FormTools();
+
+    ///
+    /// Constructeur
+    ///
+    explicit ScoreWidget(QWidget *parent = 0);
+
+    ///
+    /// Destructeur
+    ///
+    ~ScoreWidget();
+
+    ///
+    /// Permet le chargement de la liste des scores du circuit sélectionnés
+    ///
     void load();
 
 
 private:
 
-    Ui::FormTools *ui;
+    Ui::ScoreWidget *ui;
     TrackList *m_trackList;
 private slots:
 

@@ -17,8 +17,20 @@ public:
     /// La libération de la mémoire des deux composants n'est pas prise en charge par la classe Object.
     ///
     Object(QGraphicsItem *graphicsItem=nullptr, b2Body *physicsBody=nullptr);
-    Object(const Object & copy);
+
+    ///
+    /// Constructeur de copie
+    ///
+    Object(const Object& copy);
+
+    ///
+    /// Opérateur d'affectation
+    ///
     Object& operator=(const Object &obj);
+
+    ///
+    /// Destructeur
+    ///
     virtual ~Object();
 
     ///

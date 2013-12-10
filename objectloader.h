@@ -12,10 +12,19 @@ class ObjectLoader
 {
 public:
 
+    ///
+    /// Constructeur
+    ///
     ObjectLoader(Scene *scene=nullptr, const QString& carClassName=nullptr);
 
+    ///
+    /// Constructeur de copie
+    ///
     ObjectLoader(const ObjectLoader &copy);
 
+    ///
+    /// Opérateur d'affectation
+    ///
     ObjectLoader& operator=(const ObjectLoader &copy);
 
     ///

@@ -7,11 +7,25 @@ class CheckpointListener : public b2ContactListener
 private:
     int m_checkpointRemaining;
 public:
+    ///
+    /// Constructeur par défaut
+    ///
     CheckpointListener();
 
+    ///
+    /// Constructeur de copie
+    ///
     CheckpointListener(const CheckpointListener &checkList);
 
+    ///
+    /// Opérateur d'affectation
+    ///
     CheckpointListener& operator=(const CheckpointListener &checkList);
+
+    ///
+    /// Destructeur
+    ///
+    ~CheckpointListener();
 
     ///Méthode appelée au début du contact entre 2 objets
     void BeginContact (b2Contact *contact);

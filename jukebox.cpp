@@ -15,26 +15,38 @@ JukeBox::JukeBox(int currentIndex):
     m_sound(nullptr)
 {
     m_trackList = QVector<QString>();
-    m_nameList = QVector<QString>();
 }
 
 JukeBox::~JukeBox()
 {
-    if(!m_sound)
+    if(m_sound)
     {
         delete m_sound;
         m_sound=nullptr;
     }
 }
 
+JukeBox::JukeBox(const JukeBox &copy):
+    m_currentIndex(copy.m_currentIndex)
+{
+    m_sound = copy.m_sound;
+    m_trackList = copy.m_trackList;
+}
+
+JukeBox& JukeBox::operator =(const JukeBox& other)
+{
+    if(this != &other)
+    {
+        m_currentIndex = other.m_currentIndex;
+        delete m_sound;
+        m_sound = other.m_sound;
+        m_trackList = other.m_trackList;
+    }
+}
+
 void JukeBox::setTrackList(QVector<QString>trackList)
 {
     m_trackList=trackList;
-}
-
-void JukeBox::setNameList(QVector<QString>nameList)
-{
-    m_nameList=nameList;
 }
 
 void JukeBox::next()
@@ -62,10 +74,7 @@ void JukeBox::previous()
 
 }
 
-QString JukeBox::currentTrackName()const
-{
-   return m_nameList.at(m_currentIndex);
-}
+
 
 void JukeBox::load()
 {
@@ -93,7 +102,6 @@ void JukeBox::load()
     {
         item =root[i].toObject();
         m_trackList.append(item["track"].toString());
-        m_nameList.append(item["name"].toString());
     }
     m_currentIndex=0;
 }
@@ -102,6 +110,7 @@ QString JukeBox::currentTrack()const
 {
         return m_trackList.at(m_currentIndex);
 }
+
 void JukeBox::playSong(QString musicName)
 {
     if(m_sound)
@@ -109,7 +118,6 @@ void JukeBox::playSong(QString musicName)
         delete m_sound;
         m_sound= nullptr;
     }
-    //std::cout<<musicName;
     if(!m_sound)
     {
     m_sound= new QSound(QCoreApplication::applicationDirPath() + "/data/sons/"+musicName);
@@ -125,5 +133,4 @@ void JukeBox::stopPlay()
         delete m_sound;
         m_sound= nullptr;
     }
-   // m_sound->stop();
 }

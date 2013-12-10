@@ -1,5 +1,37 @@
 #include "tilemap.h"
 
+Tilemap::Tilemap()
+{}
+
+Tilemap::Tilemap(const Tilemap &other)
+{
+    for(int i=0;i<other.width();i++)
+    {
+        for(int j=0;j<other.height();j++)
+        {
+            m_tiles[j][i] = other.tile(i,j);
+        }
+    }
+}
+
+Tilemap::~Tilemap()
+{}
+
+Tilemap Tilemap::operator =(const Tilemap& other)
+{
+    if(this != &other)
+    {
+        for(int i=0;i<other.width();i++)
+        {
+            for(int j=0;j<other.height();j++)
+            {
+                m_tiles[j][i] = other.tile(i,j);
+            }
+        }
+    }
+    return *this;
+}
+
 GroundType Tilemap::tile(int x, int y) const
 {
     if (x < 0 || x >= width() || y < 0 || y >= height())

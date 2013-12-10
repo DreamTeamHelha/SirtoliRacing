@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "menu.h"
-#include "formtools.h"
+#include "menuwidget.h"
+#include "scorewidget.h"
 #include <QMessageBox>
 #include "pausemenu.h"
 #include "credits.h"
@@ -11,6 +11,7 @@
 #include <QSound>
 #include"jukebox.h"
 #include<QKeyEvent>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -27,8 +28,6 @@ MainWindow::MainWindow(QWidget *parent) :
         m_JukeBox->load();
         m_JukeBox->playSong(m_JukeBox->currentTrack());
     }
-
-
     showPanel("Menu");
 }
 
@@ -39,6 +38,12 @@ MainWindow::~MainWindow()
     {
         delete m_JukeBox;
         m_JukeBox=nullptr;
+    }
+    if(m_gameWidget)
+    {
+        m_gameWidget->close();
+        m_gameWidget->deleteLater();
+        m_gameWidget=nullptr;
     }
 }
 
@@ -66,11 +71,11 @@ void MainWindow::showPanel(const QString &menuName)
     // crée le panel correspondant
     if (menuName == "Menu")
     {
-        m_panel = new Menu(this);
+        m_panel = new MenuWidget(this);
     }
-    else if (menuName == "Tools")
+    else if (menuName == "Score")
     {
-        m_panel = new FormTools(this);
+        m_panel = new ScoreWidget(this);
     }
     else if (menuName == "Credit")
     {
@@ -80,7 +85,7 @@ void MainWindow::showPanel(const QString &menuName)
     {
         m_panel = new ChooseWidget(this);
     }
-    else if (menuName == "Score")
+    else if (menuName == "EndGame")
     {
         m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed(),m_gameWidget->scene()->trackName());
      }
@@ -141,12 +146,10 @@ void MainWindow::pauseGame(QTime)
 {
     if(!m_gameWidget)
     {
-        std::cout<<"Pas de game Widget disponible"<<std::endl;
         return;
     }
     m_panel = new PauseMenu(m_gameWidget->scene()->time().elapsed(),m_gameWidget);
     m_panel->show();
-    std::cout<<"Affichage Menu Pause"<<std::endl;
 }
 
 void MainWindow::continueGame()
@@ -162,26 +165,15 @@ void MainWindow::continueGame()
 
 void MainWindow::nextTrack()
 {
-
     m_JukeBox->next();
-
     m_JukeBox->playSong(m_JukeBox->currentTrack());
-
-
-
-
 }
 
 
 void MainWindow::previousTrack()
 {
-
     m_JukeBox->previous();
-
     m_JukeBox->playSong(m_JukeBox->currentTrack());
-
-
-
 }
 
 
@@ -198,6 +190,7 @@ void MainWindow::playStopTrack()
         m_musicPlay=true;
     }
 }
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key())
@@ -217,5 +210,4 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     default:
          QMainWindow::keyReleaseEvent(event);
     }
-
 }

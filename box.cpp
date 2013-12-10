@@ -8,17 +8,19 @@
 
 Box::Box(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
     Object(graphicsItem, physicsBody)
-{
-}
+{}
 
 Box::Box(const Box & copy) : Object::Object(copy)
 {}
 
-Box& Box::operator =(const Box &copy){
-
+Box& Box::operator =(const Box &copy)
+{
        Object::operator =(copy);
+}
 
-
+Box::~Box()
+{
+    //Rien à faire
 }
 
 Object* BoxFactory::create() const
@@ -54,6 +56,6 @@ Object* BoxFactory::create() const
     shape.SetAsBox(16, 16);
     body->CreateFixture(&shape, 2);
 
-    // création de la box et la retourne
+    //création de la box et la retourne
     return new Box(graphics, body);
 }

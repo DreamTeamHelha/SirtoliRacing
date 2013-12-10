@@ -8,12 +8,29 @@ class Car : public Object
 {
 public:
 
+    ///
+    /// Constructeur
+    ///
     Car(QGraphicsItem *graphicsItem=nullptr, b2Body *physicsBody=nullptr);
 
+    ///
+    /// Constructeur de copie
+    ///
     Car(const Car &copy);
 
+    ///
+    /// Opérateur d'affectation
+    ///
     Car& operator =(const Car &car);
 
+    ///
+    /// Destructeur
+    ///
+    ~Car();
+
+    ///
+    /// Défini le comportement de la voiture
+    ///
     void step(qreal throttle, qreal brakes, qreal steering);
 
     ///
@@ -53,5 +70,8 @@ class CarFactory : public ObjectFactory
 {
 public:
 
+    ///
+    /// Crée un objet 'Car' et le retourne
+    ///
     Object *create() const;
 };

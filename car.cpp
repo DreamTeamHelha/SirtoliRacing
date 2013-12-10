@@ -18,17 +18,24 @@ Car::Car(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
     m_maxTorque({0}),
     m_angularAccel({0}),
     m_maxLateralFriction({0})
-{
-}
+{}
 
 Car::Car(const Car & copy) : Object::Object(copy)
 {
     m_tilemap=copy.m_tilemap;
-    m_accelRate[GroundType::_count]=copy.m_accelRate[GroundType::_count];
-    m_brakeRate[GroundType::_count]=copy.m_brakeRate[GroundType::_count];
-    m_maxTorque[GroundType::_count]=copy.m_maxTorque[GroundType::_count];
-    m_angularAccel[GroundType::_count]=copy.m_angularAccel[GroundType::_count];
-    m_maxLateralFriction[GroundType::_count]=copy.m_maxLateralFriction[GroundType::_count];
+    for(int i=0;i<GroundType::_count;i++)
+    {
+        m_accelRate[i]=copy.m_accelRate[i];
+        m_brakeRate[i]=copy.m_brakeRate[i];
+        m_maxTorque[i]=copy.m_maxTorque[i];
+        m_angularAccel[i]=copy.m_angularAccel[i];
+        m_maxLateralFriction[i]=copy.m_maxLateralFriction[i];
+    }
+}
+
+Car::~Car()
+{
+    //Rien à faire
 }
 
 Tilemap* Car::tilemap() const
@@ -43,8 +50,8 @@ void Car::setTilemap(Tilemap *tilemap)
 
 void Car::step(qreal throttle, qreal brakes, qreal steering)
 {
-    float maxTorque = 25000000;   // prochainement propriété de la voiture
-    float maxLateralFriction = 10; // ''
+    float maxTorque = 25000000;
+    float maxLateralFriction = 10;
     float accelRate = 1000000;
     float brakeRate = 500000;
     float angularAccel = 300000;
@@ -69,11 +76,7 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
         // direction
         if (steering != 0)
         {
-            Vector velocity = Vector(physicsBody()->GetLinearVelocity()).normalized();
-            Vector normal = Vector(physicsBody()->GetWorldVector(Vector(1,0)));
-            float lateralFriction = b2Dot(normal, velocity);
-
-            angularAccel *= steering * Vector(physicsBody()->GetLinearVelocity()).length()/100;// * lateralFriction;
+            angularAccel *= steering * Vector(physicsBody()->GetLinearVelocity()).length()/100;
             if (angularAccel > maxTorque)
             {
                 angularAccel = maxTorque;
@@ -101,7 +104,6 @@ void Car::step(qreal throttle, qreal brakes, qreal steering)
         }
 
         // adhérence
-        //*
         {
             Vector velocity = physicsBody()->GetLinearVelocity();
             Vector normal = physicsBody()->GetWorldVector(Vector(0,1));
@@ -242,11 +244,11 @@ Object *CarFactory::create() const
     shape.SetAsBox(33, 17);
     b2Fixture *fixture =  body->CreateFixture(&shape, 1);
 
-    // création de la voiture
+    //création de la voiture
     Car *car = new Car(graphics, body);
     fixture->SetUserData((void *)car);
 
-    // paramétrage
+    // paramétrage du comportement
     car->setTilemap(scene()->tilemap());
 
     car->setAccelRate(GroundType::Asphalt, 12000);

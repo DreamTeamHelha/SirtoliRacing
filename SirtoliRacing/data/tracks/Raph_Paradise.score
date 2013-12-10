@@ -17,6 +17,10 @@
     },
     {
         "Name": "YOURNAME",
+        "Time": 38482
+    },
+    {
+        "Name": "YOURNAME",
         "Time": 44784
     },
     {
@@ -34,9 +38,5 @@
     {
         "Name": "YOURNAME",
         "Time": 39446
-    },
-    {
-        "Name": "YOURNAME",
-        "Time": 90912
     }
 ]

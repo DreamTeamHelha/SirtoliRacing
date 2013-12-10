@@ -7,10 +7,19 @@ class Checkpoint : public Object
 private:
     bool m_touched;
 public:
+    ///
+    /// Constructeur
+    ///
     Checkpoint(QGraphicsItem *graphicsItem=nullptr, b2Body *physicsBody=nullptr);
 
+    ///
+    /// Constructeur de copie
+    ///
     Checkpoint(const Checkpoint & copy);
 
+    ///
+    ///
+    ///
     Checkpoint& operator =(const Checkpoint & check);
 
 

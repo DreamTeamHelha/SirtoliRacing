@@ -84,25 +84,8 @@ void ScoreWindow::addScore()
 
 void ScoreWindow::load()
 {
-    //Lecture du fichier de score
-    QFile file(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_track +".score");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    if(!file.isOpen())
-    {
-        QMessageBox::information(nullptr, "Erreur", "Le fichier de score n'est pas trouve!");
-    }
 
-    QString val = file.readAll();
-    file.close();
-
-    //Transformation du contenu du fichier en tableau JSON
-    QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
-    if(document.isEmpty())
-    {
-       QMessageBox::information(nullptr, "Erreur", "Le fichier de score n'est pas trouve!");
-    }
-
-    QJsonArray root = document.array();
+    QJsonArray root = utils::readJsonFile(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_track +".score");
     for(int i=0;i<root.count();i++)
     {
         QJsonObject item =root[i].toObject();

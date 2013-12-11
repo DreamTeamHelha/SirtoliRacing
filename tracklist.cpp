@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <iostream>
 #include <QJsonArray>
+#include "utils.h"
 
 TrackList::TrackList(int currentIndex):
     m_currentIndex(currentIndex)
@@ -78,27 +79,9 @@ QString TrackList::currentTrackName()const
 
 void TrackList::load()
 {
-    QString val;
+
     QJsonObject item;
-    QFile file(QCoreApplication::applicationDirPath() + "/data/tracklist.json");
-
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    if(!file.isOpen())
-    {
-        return;
-    }
-
-    val = file.readAll();
-    file.close();
-
-    QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
-    if(document.isEmpty())
-    {
-        return;
-    }
-
-
-    QJsonArray root = document.array();
+    QJsonArray root =  utils::readJsonFile(QCoreApplication::applicationDirPath() + "/data/tracklist.json");
     for(int i=0;i<root.count();i++)
     {
         item =root[i].toObject();

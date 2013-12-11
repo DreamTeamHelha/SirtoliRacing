@@ -1,15 +1,14 @@
 #include "jukebox.h"
-#include"QString"
-#include"QMessageBox"
-#include"QJsonDocument"
-#include"QStandardItemModel"
-#include"QJsonArray"
-#include"QJsonObject"
-#include"QList"
-#include"QFile"
-#include"QCoreApplication"
+#include "QString"
+#include "QMessageBox"
+#include "QStandardItemModel"
+#include "QJsonArray"
+#include "QJsonObject"
+#include "QList"
+#include "QCoreApplication"
 #include "QSound"
-#include<iostream>
+#include <iostream>
+#include "utils.h"
 JukeBox::JukeBox(int currentIndex):
     m_currentIndex(currentIndex),
     m_sound(nullptr)
@@ -42,6 +41,7 @@ JukeBox& JukeBox::operator =(const JukeBox& other)
         m_sound = other.m_sound;
         m_trackList = other.m_trackList;
     }
+    return *this;
 }
 
 void JukeBox::setTrackList(QVector<QString>trackList)
@@ -78,26 +78,8 @@ void JukeBox::previous()
 
 void JukeBox::load()
 {
-    QString val;
+    QJsonArray root = utils::readJsonFile(QCoreApplication::applicationDirPath()+"/data/jukebox.json");
     QJsonObject item;
-    QFile file(QCoreApplication::applicationDirPath() + "/data/jukebox.json");
-
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    if(!file.isOpen())
-    {
-        return;
-    }
-
-    val = file.readAll();
-    file.close();
-
-    QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
-    if(document.isEmpty())
-    {
-        return;
-    }
-
-    QJsonArray root = document.array();
     for(int i=0;i<root.count();i++)
     {
         item =root[i].toObject();
@@ -120,7 +102,7 @@ void JukeBox::playSong(QString musicName)
     }
     if(!m_sound)
     {
-    m_sound= new QSound(QCoreApplication::applicationDirPath() + "/data/sons/"+musicName);
+    m_sound= new QSound(QCoreApplication::applicationDirPath() + "/data/sounds/"+musicName);
     m_sound->play();
     }
 

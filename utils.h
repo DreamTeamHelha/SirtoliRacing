@@ -1,6 +1,10 @@
 #pragma once
 
 #include <QString>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QFile>
+#include <QMessageBox>
 
 namespace utils
 {
@@ -33,6 +37,27 @@ namespace utils
                .arg(csec,2,10,character);
         return time;
 
+    }
+
+    inline QJsonArray readJsonFile(QString path)
+    {
+        QFile file(path);
+        file.open(QIODevice::ReadOnly | QIODevice::Text);
+        if(!file.isOpen())
+        {
+            QMessageBox::information(nullptr,"Erreur","Le fichier n'est pas disponible!");
+        }
+
+        QString val = file.readAll();
+        file.close();
+
+        QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
+        if(document.isEmpty())
+        {
+            QMessageBox::information(nullptr,"Erreur","Le fichier est vide!");
+        }
+
+        return document.array();
     }
 
 }

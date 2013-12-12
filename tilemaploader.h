@@ -6,9 +6,9 @@
 class TilemapLoader
 {
 private:
-    static const QRgb GRASS =   0xFF00FF00;
-    static const QRgb ASPHALT = 0xFF000000;
-    static const QRgb MUD =     0xFFFF0000;
+    static const QRgb GRASS =   0xFF337920;
+    static const QRgb ASPHALT = 0xFF383433;
+    static const QRgb MUD =     0xFF5B4120;
 public:
     TilemapLoader() = delete;
     ~TilemapLoader() = delete;

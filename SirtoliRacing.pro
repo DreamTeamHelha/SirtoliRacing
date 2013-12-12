@@ -7,6 +7,8 @@ QMAKE_CXX += -std=gnu++11
 
 DESTDIR = $$PWD/SirtoliRacing
 
+RC_FILE = SirtoliRacing.rc
+
 SOURCES += \
     main.cpp \
     scene.cpp \

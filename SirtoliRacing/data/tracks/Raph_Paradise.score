@@ -29,14 +29,14 @@
     },
     {
         "Name": "YOURNAME",
+        "Time": 42500
+    },
+    {
+        "Name": "YOURNAME",
         "Time": 44784
     },
     {
         "Name": "ZigZag",
         "Time": 57534
-    },
-    {
-        "Name": "Seb",
-        "Time": 61044
     }
 ]

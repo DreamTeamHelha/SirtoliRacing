@@ -46,27 +46,10 @@ bool ObjectLoader::load(const QString& filename)
     if (!m_scene)
         return false;
 
-    QString val;
     QJsonObject item;
     QString className;
-    QFile file(filename);
 
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    if(!file.isOpen())
-    {
-        return false;
-    }
-
-    val = file.readAll();
-    file.close();
-
-    QJsonDocument document = QJsonDocument::fromJson(val.toUtf8());
-    if(document.isEmpty())
-    {
-        return false;
-    }
-
-    QJsonArray root = document.array();
+    QJsonArray root = utils::readJsonFile(filename);
     for(int i=0;i<root.count();i++)
     {
         item =root[i].toObject();

@@ -49,6 +49,7 @@ int main(int argc, char ** argv)
     w.show();
     w.setMaximumSize(800,600);
     w.setMinimumSize(800,600);
+    w.setWindowIcon(QIcon(QCoreApplication::applicationDirPath()+"/data/icon.ico"));
 
     int returnCode = app.exec();
 

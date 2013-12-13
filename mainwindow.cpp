@@ -8,6 +8,7 @@
 #include "choosewidget.h"
 #include "scorewindow.h"
 #include "settings.h"
+#include "help.h"
 #include <QSound>
 #include"jukebox.h"
 #include<QKeyEvent>
@@ -101,6 +102,10 @@ void MainWindow::showPanel(const QString &menuName)
     {
         m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed(),m_gameWidget->scene()->trackName());
      }
+    else if (menuName == "Help")
+       {
+           m_panel = new Help(this);
+       }
 
     if(m_gameWidget)
     {

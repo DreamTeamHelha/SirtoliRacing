@@ -85,7 +85,8 @@ SOURCES += \
     settings.cpp \
     jukebox.cpp \
     scorewidget.cpp \
-    menuwidget.cpp
+    menuwidget.cpp \
+    help.cpp
 
 HEADERS += \
     scene.h \
@@ -167,7 +168,8 @@ HEADERS += \
     settings.h \
     jukebox.h \
     scorewidget.h \
-    menuwidget.h
+    menuwidget.h \
+    help.h
 
 FORMS += \
     gamewindow.ui \
@@ -176,4 +178,5 @@ FORMS += \
     choosewidget.ui \
     scorewindow.ui \
     scorewidget.ui \
-    menuwidget.ui
+    menuwidget.ui \
+    help.ui

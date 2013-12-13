@@ -6,6 +6,9 @@
 #include "gamewidget.h"
 #include "settings.h"
 #include "jukebox.h"
+#include <QVideoWidget>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 namespace Ui {
 class MainWindow;
 }
@@ -60,15 +63,15 @@ public slots:
     ///
     /// Appel la musique suivante
     ///
-    void nextTrack();
-    ///
-    /// Appel la musique précédente
-    ///
-    void previousTrack();
+
     ///
     /// Stop la musique
     ///
     void playStopTrack();
+    ///
+    ///Load les pusique et les met dans la playlist
+    ///
+    void load();
 
 protected:
     ///
@@ -81,10 +84,10 @@ protected:
 private:
 
     Ui::MainWindow *ui;
-
+    QMediaPlaylist *m_playlist;
+    QMediaPlayer *m_player;
     Panel      *m_panel;
     GameWidget *m_gameWidget;
-    JukeBox *m_JukeBox;
     bool m_musicPlay;
 };
 

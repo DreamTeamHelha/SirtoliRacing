@@ -1,4 +1,4 @@
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia network
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia network multimedia multimediawidgets
 
 
 DEFINES += SFML_STATIC

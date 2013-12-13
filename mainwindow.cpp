@@ -11,22 +11,30 @@
 #include <QSound>
 #include"jukebox.h"
 #include<QKeyEvent>
-
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+#include <QJsonObject>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_panel(nullptr),
     m_gameWidget(nullptr),
     m_musicPlay(true),
-    m_JukeBox(nullptr)
+    m_playlist(nullptr),
+    m_player(nullptr)
 {
     ui->setupUi(this);
 
-    if(!m_JukeBox)
+
+    if(!m_playlist)
     {
-        m_JukeBox=new JukeBox();
-        m_JukeBox->load();
-        m_JukeBox->playSong(m_JukeBox->currentTrack());
+        m_playlist=new QMediaPlaylist;
+        m_player=new QMediaPlayer;
+        MainWindow::load();
+        m_playlist->setCurrentIndex(0);
+        m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        m_player->setPlaylist(m_playlist);
+        m_player->play();
     }
     showPanel("Menu");
 }
@@ -34,11 +42,15 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    if(m_JukeBox)
+
+    if(m_player)
     {
-        delete m_JukeBox;
-        m_JukeBox=nullptr;
+        delete m_player;
+        delete m_playlist;
+        m_player=nullptr;
+        m_playlist=nullptr;
     }
+
     if(m_gameWidget)
     {
         m_gameWidget->close();
@@ -163,31 +175,17 @@ void MainWindow::continueGame()
 
 }
 
-void MainWindow::nextTrack()
-{
-    m_JukeBox->next();
-    m_JukeBox->playSong(m_JukeBox->currentTrack());
-}
-
-
-void MainWindow::previousTrack()
-{
-    m_JukeBox->previous();
-    m_JukeBox->playSong(m_JukeBox->currentTrack());
-}
-
-
 void MainWindow::playStopTrack()
 {
     if(m_musicPlay==true)
     {
-         m_JukeBox->stopPlay();
+         m_player->stop();
          m_musicPlay=false;
     }
     else
     {
-       m_JukeBox->playSong(m_JukeBox->currentTrack());
-        m_musicPlay=true;
+       m_player->play();
+       m_musicPlay=true;
     }
 }
 
@@ -196,18 +194,32 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     switch (event->key())
     {
     case Qt::Key_S:
+
         MainWindow::playStopTrack();
         break;
 
     case Qt::Key_P:
-        MainWindow::previousTrack();
+        m_playlist->previous();
         break;
 
     case Qt::Key_N:
-        MainWindow::nextTrack();
+        m_playlist->next();
         break;
+
 
     default:
          QMainWindow::keyReleaseEvent(event);
+    }
+}
+
+void MainWindow::load()
+{
+    QJsonArray root = utils::readJsonFile(QCoreApplication::applicationDirPath()+"/data/jukebox.json");
+    QJsonObject item;
+    for(int i=0;i<root.count();i++)
+    {
+        item =root[i].toObject();
+        m_playlist->addMedia(QUrl(QCoreApplication::applicationDirPath()+"/data/sounds/"+item["track"].toString()));
+
     }
 }

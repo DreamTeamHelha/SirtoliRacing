@@ -14,6 +14,7 @@
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
 #include <QJsonObject>
+#include "introwidget.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -21,22 +22,30 @@ MainWindow::MainWindow(QWidget *parent) :
     m_gameWidget(nullptr),
     m_musicPlay(true),
     m_playlist(nullptr),
-    m_player(nullptr)
+    m_player(nullptr),
+    m_videoWidget(nullptr)
 {
     ui->setupUi(this);
 
-
-    if(!m_playlist)
+    if(!m_videoWidget)
     {
-        m_playlist=new QMediaPlaylist;
-        m_player=new QMediaPlayer;
-        MainWindow::load();
+        m_player=new QMediaPlayer();
+        m_playlist=new QMediaPlaylist();
+        m_playlist->addMedia(QUrl(QCoreApplication::applicationDirPath()+"/data/sounds/video2.avi"));
         m_playlist->setCurrentIndex(0);
-        m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        m_player = new QMediaPlayer;
         m_player->setPlaylist(m_playlist);
+         m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        m_videoWidget = new QVideoWidget(this);
+        m_player->setVideoOutput(m_videoWidget);
+        m_videoWidget->setGeometry(0,0,800,600);
+        m_videoWidget->show();
         m_player->play();
     }
-    showPanel("Menu");
+
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -100,7 +109,7 @@ void MainWindow::showPanel(const QString &menuName)
     else if (menuName == "EndGame")
     {
         m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed(),m_gameWidget->scene()->trackName());
-     }
+    }
 
     if(m_gameWidget)
     {
@@ -205,11 +214,46 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     case Qt::Key_N:
         m_playlist->next();
         break;
+    case Qt::Key_Space:
+
+        MainWindow::lancerMenu();
+        break;
+
 
 
     default:
          QMainWindow::keyReleaseEvent(event);
     }
+}
+
+void MainWindow::lancerMenu()
+{
+
+    if(m_videoWidget)
+    {
+        m_videoWidget->close();
+        m_player->stop();
+        m_playlist->clear();
+        delete m_videoWidget;
+        delete m_playlist;
+        delete m_player;
+        m_videoWidget=nullptr;
+        m_playlist=nullptr;
+        m_player=nullptr;
+    }
+
+    if(!m_playlist)
+    {
+        m_playlist=new QMediaPlaylist;
+        m_player=new QMediaPlayer;
+        MainWindow::load();
+        m_playlist->setCurrentIndex(0);
+        m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        m_player->setPlaylist(m_playlist);
+        m_player->play();
+    }
+      showPanel("Menu");
+
 }
 
 void MainWindow::load()

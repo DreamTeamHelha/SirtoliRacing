@@ -45,6 +45,11 @@ private slots:
     ///
     void showCredits();
 
+    ///
+    /// Affiche l'aide
+    ///
+    void showHelp();
+
 private:
 
     Ui::MenuWidget *ui;

@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     {
         m_player=new QMediaPlayer();
         m_playlist=new QMediaPlaylist();
-        m_playlist->addMedia(QUrl(QCoreApplication::applicationDirPath()+"/data/sounds/video2.avi"));
+        m_playlist->addMedia(QUrl(QCoreApplication::applicationDirPath()+"/data/sounds/trailerSirtoli.wmv"));
         m_playlist->setCurrentIndex(0);
         m_player = new QMediaPlayer;
         m_player->setPlaylist(m_playlist);

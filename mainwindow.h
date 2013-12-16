@@ -9,6 +9,7 @@
 #include <QVideoWidget>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include<QVideoWidget>
 namespace Ui {
 class MainWindow;
 }
@@ -38,6 +39,7 @@ public:
     ///
     Panel      *panel() const;
     GameWidget *gameWidget() const;
+
 
 public slots:
 
@@ -72,6 +74,13 @@ public slots:
     ///Load les pusique et les met dans la playlist
     ///
     void load();
+    ///
+    ///AfficherMenu+playlist
+    ///
+    void lancerMenu();
+
+
+
 
 protected:
     ///
@@ -86,8 +95,10 @@ private:
     Ui::MainWindow *ui;
     QMediaPlaylist *m_playlist;
     QMediaPlayer *m_player;
+    QVideoWidget *m_videoWidget;
     Panel      *m_panel;
     GameWidget *m_gameWidget;
     bool m_musicPlay;
+
 };
 

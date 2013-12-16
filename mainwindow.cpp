@@ -110,15 +110,11 @@ void MainWindow::showPanel(const QString &menuName)
     else if (menuName == "EndGame")
     {
         m_panel = new ScoreWindow(this,m_gameWidget->scene()->time().elapsed(),m_gameWidget->scene()->trackName());
-<<<<<<< HEAD
-     }
-    else if (menuName == "Help")
-       {
-           m_panel = new Help(this);
-       }
-=======
     }
->>>>>>> origin/Introduction-Video
+    else if (menuName == "Help")
+    {
+       m_panel = new Help(this);
+    }
 
     if(m_gameWidget)
     {
@@ -228,8 +224,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         MainWindow::lancerMenu();
         break;
 
-
-
     default:
          QMainWindow::keyReleaseEvent(event);
     }
@@ -237,7 +231,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::lancerMenu()
 {
-
     if(m_videoWidget)
     {
         m_videoWidget->close();
@@ -261,8 +254,7 @@ void MainWindow::lancerMenu()
         m_player->setPlaylist(m_playlist);
         m_player->play();
     }
-      showPanel("Menu");
-
+    showPanel("Menu");
 }
 
 void MainWindow::load()
@@ -273,6 +265,5 @@ void MainWindow::load()
     {
         item =root[i].toObject();
         m_playlist->addMedia(QUrl(QCoreApplication::applicationDirPath()+"/data/sounds/"+item["track"].toString()));
-
     }
 }

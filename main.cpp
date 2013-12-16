@@ -10,9 +10,6 @@ int main(int argc, char ** argv)
 {
     QApplication app(argc, argv);
 
-    //Test test;
-    //test.test();
-
     // initialisation des factories
     ObjectFactories::initialize();
 

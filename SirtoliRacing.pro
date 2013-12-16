@@ -1,4 +1,4 @@
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia network multimedia multimediawidgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia network multimedia multimediawidgets xml
 
 
 DEFINES += SFML_STATIC
@@ -8,6 +8,8 @@ QMAKE_CXX += -std=gnu++11
 DESTDIR = $$PWD/SirtoliRacing
 
 RC_FILE = SirtoliRacing.rc
+
+LIBS += $$PWD/libQtDropbox.a
 
 SOURCES += \
     main.cpp \

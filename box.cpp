@@ -6,28 +6,6 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 
-Box::Box(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
-    Object(graphicsItem, physicsBody)
-{}
-
-Box::Box(const Box & copy) : Object::Object(copy)
-{}
-
-Box& Box::operator=(const Box &copy)
-{
-    if(this != &copy)
-    {
-        Object::operator=(copy);
-    }
-    return *this;
-
-}
-
-Box::~Box()
-{
-    //Rien à faire
-}
-
 Object* BoxFactory::create() const
 {
     using utils::toRadians;
@@ -62,5 +40,5 @@ Object* BoxFactory::create() const
     body->CreateFixture(&shape, 2);
 
     //création de la box et la retourne
-    return new Box(graphics, body);
+    return new Object(graphics, body);
 }

@@ -5,17 +5,6 @@
 #include <QCoreApplication>
 #include <QMessageBox>
 
-Tree::Tree(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
-    Object(graphicsItem, physicsBody)
-{
-}
-
-Tree::Tree(const Tree &copy):Object::Object(copy){}
-
-Tree& Tree::operator =(const Tree &t){
-    Object::operator =(t);
-}
-
 Object* TreeFactory::create() const
 {
     using utils::toRadians;
@@ -48,6 +37,5 @@ Object* TreeFactory::create() const
     body->CreateFixture(&shape, 1);
 
     // création du tree et le retourne
-    Tree *tree = new Tree(graphics, body);
-    return tree;
+    return new Object(graphics, body);
 }

@@ -7,22 +7,27 @@ Object::Object(QGraphicsItem *graphicsItem, b2Body *physicsBody) :
 {
 }
 
-Object::Object(const Object & copy){
-    this->m_graphicsItem=copy.m_graphicsItem;
-    this->m_physicsBody=copy.m_physicsBody;
-
+Object::Object(const Object & copy) :
+    m_graphicsItem(copy.m_graphicsItem),
+    m_physicsBody(copy.m_physicsBody)
+{
 }
-Object& Object::operator=(const Object &obj){
+
+Object& Object::operator=(const Object &obj)
+{
     if(this != &obj)
     {
-        this->m_graphicsItem = obj.m_graphicsItem;
-        this->m_physicsBody =  new b2Body(*obj.m_physicsBody);
+        m_graphicsItem = obj.m_graphicsItem;
+        m_physicsBody =  obj.m_physicsBody;
     }
     return *this;
 }
 
 Object::~Object()
-{}
+{
+    // rien à supprimer,
+    // graphicsItem et physicsBody sont en aggrégation externe.
+}
 
 
 QGraphicsItem *Object::graphicsItem() const
@@ -34,7 +39,6 @@ b2Body *Object::physicsBody() const
 {
     return m_physicsBody;
 }
-
 
 void Object::update()
 {

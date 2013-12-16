@@ -3,17 +3,9 @@
 #include "object.h"
 #include "objectfactory.h"
 
-class Tree : public Object
-{
-public:
-    Tree(QGraphicsItem *graphicsItem, b2Body *physicsBody);
-
-    Tree(const Tree &copy);
-
-    Tree& operator =(const Tree &t);
-
-};
-
+///
+/// Crée un arbre
+///
 class TreeFactory : public ObjectFactory
 {
 public:

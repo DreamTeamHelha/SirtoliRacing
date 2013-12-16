@@ -4,6 +4,7 @@
 ## Eclipse
 #################
 
+*.score
 *.pydevproject
 .project
 .metadata

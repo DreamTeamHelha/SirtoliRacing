@@ -171,7 +171,8 @@ HEADERS += \
     scorewidget.h \
     menuwidget.h \
     help.h \
-    introwidget.h
+    introwidget.h \
+    _params.h
 
 FORMS += \
     gamewindow.ui \

@@ -16,6 +16,9 @@
 #include <QMediaPlaylist>
 #include <QJsonObject>
 #include "introwidget.h"
+#include <QException>
+#include "_params.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -30,18 +33,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     if(!m_videoWidget)
     {
-        m_player=new QMediaPlayer();
-        m_playlist=new QMediaPlaylist();
-        m_playlist->addMedia(QUrl(QCoreApplication::applicationDirPath()+"/data/sounds/trailerSirtoli.wmv"));
-        m_playlist->setCurrentIndex(0);
-        m_player = new QMediaPlayer;
-        m_player->setPlaylist(m_playlist);
-         m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
-        m_videoWidget = new QVideoWidget(this);
-        m_player->setVideoOutput(m_videoWidget);
-        m_videoWidget->setGeometry(0,0,800,600);
-        m_videoWidget->show();
-        m_player->play();
+
+
+            m_playlist=new QMediaPlaylist();
+            #ifdef VIDEO_AT_START
+               m_player=new QMediaPlayer();
+               m_playlist->addMedia(QUrl(QCoreApplication::applicationDirPath()+"/data/sounds/trailerSirtoli.wmv"));
+               m_playlist->setCurrentIndex(0);
+               m_player = new QMediaPlayer;
+               m_player->setPlaylist(m_playlist);
+               m_playlist->setPlaybackMode(QMediaPlaylist::Loop);
+               m_videoWidget = new QVideoWidget(this);
+               m_player->setVideoOutput(m_videoWidget);
+               m_videoWidget->setGeometry(0,0,800,600);
+               m_videoWidget->show();
+               m_player->play();
+            #else
+                lancerMenu();
+            #endif
     }
 
 

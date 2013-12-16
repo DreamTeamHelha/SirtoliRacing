@@ -89,7 +89,8 @@ SOURCES += \
     scorewidget.cpp \
     menuwidget.cpp \
     help.cpp \
-    introwidget.cpp
+    introwidget.cpp \
+    utils.cpp
 
 HEADERS += \
     scene.h \

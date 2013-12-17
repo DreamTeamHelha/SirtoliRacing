@@ -12,16 +12,21 @@
 #include <QList>
 #include <QVector>
 
-
-
 ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
     Panel(parent),
     m_time(timeElapsed),
     m_track(track),
     m_rank(10),
-    ui(new Ui::ScoreWindow)
+    ui(new Ui::ScoreWindow),
+    m_scoreManager(new ScoreManager(this))
 {
     ui->setupUi(this);
+
+    connect(m_scoreManager, SIGNAL(scoreReceived(QString,QVector<Score*>)), this, SLOT(loaded(QString,QVector<Score*>)));
+    connect(m_scoreManager, SIGNAL(error(QString)), this, SLOT(error(QString)));
+
+    m_scoreManager->getScores(m_track);
+    /*
     load();
     m_rank = ranked();
     if(m_rank<10)
@@ -44,6 +49,7 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
     }
 
     loadTableView();
+    //*/
 }
 
 ScoreWindow::~ScoreWindow()
@@ -58,8 +64,11 @@ ScoreWindow::~ScoreWindow()
 
 void ScoreWindow::addScore()
 {
-
     m_scoreVector[m_rank]->setName(ui->nameText->toPlainText());
+
+    m_scoreManager->sendScores(m_track, m_scoreVector);
+    connect(m_scoreManager, SIGNAL(scoreSent()), this, SLOT(backToMenu()));
+    /*
     QJsonArray array;
 
     for(Score*  score: m_scoreVector)
@@ -80,6 +89,7 @@ void ScoreWindow::addScore()
     file.write(QJsonDocument(array).toJson());
 
     emit showPanel("Menu");
+    /*/
 }
 
 void ScoreWindow::load()
@@ -134,4 +144,38 @@ int ScoreWindow::ranked() const
 void ScoreWindow::backToMenu()
 {
     emit showPanel("Menu");
+}
+
+void ScoreWindow::loaded(QString, QVector<Score *> scores)
+{
+    m_scoreVector = scores;
+
+    m_rank = ranked();
+    if(m_rank<10)
+    {
+        connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(addScore()));
+        m_scoreVector.insert(m_rank,new Score(m_time,"YOURNAME"));
+        if(m_scoreVector.size()>10)
+        {
+            delete m_scoreVector[10];
+            m_scoreVector.remove(10);
+        }
+        ui->textLabel->setText("Good Game ! you're in the position : " + QString::number(m_rank+1) + ".Your time is : "+ utils::showableTime(m_time) + ". Please enter your name to save this time :" );
+        ui->pushButton->setText("Confirm & Back to the menu");
+        ui->nameText->insertPlainText("YOURNAME");
+    }
+    else
+    {
+        connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(backToMenu()));
+        ui->nameText->hide();
+    }
+
+    loadTableView();
+}
+
+void ScoreWindow::error(QString errorMsg)
+{
+    // NOTE: on devrait ptêt aussi connecter le bouton pour qu'il fasse retour en cas d'erreur,
+    //       pour ne pas être bloqué sur cette page.
+    QMessageBox::information(this, "Error", errorMsg, 0);
 }

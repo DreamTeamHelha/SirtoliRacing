@@ -32,6 +32,7 @@ private:
 
     Ui::ScoreWidget *ui;
     TrackList *m_trackList;
+
 private slots:
 
     void afficherMenu();

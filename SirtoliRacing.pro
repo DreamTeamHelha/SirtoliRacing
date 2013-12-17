@@ -85,7 +85,8 @@ SOURCES += \
     scorewidget.cpp \
     menuwidget.cpp \
     help.cpp \
-    utils.cpp
+    utils.cpp \
+    scoremanager.cpp
 
 HEADERS += \
     scene.h \
@@ -168,7 +169,8 @@ HEADERS += \
     scorewidget.h \
     menuwidget.h \
     help.h \
-    _params.h
+    _params.h \
+    scoremanager.h
 
 FORMS += \
     gamewindow.ui \

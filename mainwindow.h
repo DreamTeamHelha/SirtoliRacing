@@ -93,8 +93,8 @@ protected:
 private:
 
     Ui::MainWindow *ui;
-    QMediaPlaylist *m_playlist;
-    QMediaPlayer *m_player;
+    QMediaPlaylist *m_playlist;//point de playliste
+    QMediaPlayer *m_player;//le player celui
     QVideoWidget *m_videoWidget;
     Panel      *m_panel;
     GameWidget *m_gameWidget;

@@ -70,14 +70,14 @@ protected:
 
 private:
 
-    QString        m_levelName;
-    Scene         *m_scene;
-    PlayerInput    m_playerInput;
-    QLabel         m_timeLabel;
-    QLabel         m_checkpointRemainingLabel;
-    bool           m_paused;
-    float          m_cameraScale;
-    unsigned       m_frameCount;
-    PreStartTimer *m_preStartTimer;
-    QLabel         m_timeBeforeStartLabel;
+    QString        m_levelName;//nom du niveau
+    Scene         *m_scene;//pointeur sur la scene qui affiche
+    PlayerInput    m_playerInput;//permet de gérer les commande de jeur
+    QLabel         m_timeLabel;//affiche le temps
+    QLabel         m_checkpointRemainingLabel;//affcihe le nombvre de label restant
+    bool           m_paused;// bool voir si le jeu est en pause
+    float          m_cameraScale;//utilser pour le calcul du zoom
+    unsigned       m_frameCount;//entier non négatif , nombre de fram depuis le dernier zoom appliqué
+    PreStartTimer *m_preStartTimer;// 3, 2 1 avant la course
+    QLabel         m_timeBeforeStartLabel; // compteur affcher avant le debut
 };

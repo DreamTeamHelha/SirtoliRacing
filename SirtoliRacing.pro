@@ -85,11 +85,9 @@ SOURCES += \
     scorewindow.cpp \
     prestarttimer.cpp \
     settings.cpp \
-    jukebox.cpp \
     scorewidget.cpp \
     menuwidget.cpp \
     help.cpp \
-    introwidget.cpp \
     utils.cpp
 
 HEADERS += \
@@ -170,11 +168,9 @@ HEADERS += \
     scorewindow.h \
     prestarttimer.h \
     settings.h \
-    jukebox.h \
     scorewidget.h \
     menuwidget.h \
     help.h \
-    introwidget.h \
     _params.h
 
 FORMS += \
@@ -185,5 +181,4 @@ FORMS += \
     scorewindow.ui \
     scorewidget.ui \
     menuwidget.ui \
-    help.ui \
-    introwidget.ui
+    help.ui

@@ -14,6 +14,9 @@ public:
     explicit Help(QWidget *parent = 0);
     ~Help();
 private slots:
+    ///
+    /// \brief backToMenu afficher le menu
+    ///
     void backToMenu();
 
 private:

@@ -74,9 +74,9 @@ public:
 private:
 
 
-    QVector<QString> m_trackList;
-    int              m_currentIndex;
-    QSound           *m_sound;
+    QVector<QString> m_trackList;//vector recevant les nom de musique
+    int              m_currentIndex;// indice de la musique en cours
+    QSound           *m_sound;//point qsound
 
 private slots:
 

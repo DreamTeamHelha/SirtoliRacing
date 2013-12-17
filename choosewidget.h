@@ -48,6 +48,6 @@ private slots:
 
 private:
     Ui::ChooseWidget *ui;
-    TrackList        *m_trackList;
+    TrackList        *m_trackList;//pointeur qui servira de liste des courses
 };
 

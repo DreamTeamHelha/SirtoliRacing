@@ -24,7 +24,11 @@ ScoreWidget::ScoreWidget(QWidget *parent) :
 
     m_trackList = new TrackList();
     m_trackList->load();
-
+    this->setStyleSheet("#ScoreWidget{background-image : url(./data/img/Fond.png);}");
+    ui->pushButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/BACK.png);}QPushButton::hover{background-image : url(./data/img/BACK-COULEUR.png);}");
+    ui->label->setStyleSheet("QLabel#label{background-image:url(./data/img/FOND-SCORE.png);}");
+    ui->previousButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/GFLECHE.png);}QPushButton::hover{background-image : url(./data/img/GFLECHE-COULEUR.png);}");
+    ui->nextButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/DFLECHE.png);}QPushButton::hover{background-image : url(./data/img/DFLECHE-COULEUR.png);}");
     ui->trackName->setText(m_trackList->currentTrackName());
     load();
 }

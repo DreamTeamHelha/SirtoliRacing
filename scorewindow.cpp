@@ -22,14 +22,10 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
 {
     ui->setupUi(this);
 
-<<<<<<< HEAD
     this->setStyleSheet("#ScoreWindow{background-image : url(./data/img/Fond.png);}");
     ui->pushButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);background-image:url(./data/img/CONTINUE.png);} QPushButton::hover{background-image:url(./data/img/CONTINUE-COULEUR.png);}");
     ui->label->setStyleSheet("QLabel#label{background-image:url(./data/img/FOND-SCORE.png);}");
 
-
-=======
->>>>>>> 3e5b199f6cefcb73c1e8092ee7718f3541244d86
     connect(m_scoreManager, SIGNAL(scoreReceived(QString,QVector<Score*>)), this, SLOT(loaded(QString,QVector<Score*>)));
     connect(m_scoreManager, SIGNAL(error(QString)), this, SLOT(error(QString)));
 

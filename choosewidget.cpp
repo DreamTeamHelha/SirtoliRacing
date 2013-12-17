@@ -17,6 +17,12 @@ ChooseWidget::ChooseWidget(QWidget *parent) :
     m_trackList = new TrackList();
     m_trackList->load();
 
+    this->setStyleSheet("#ChooseWidget{background-image : url(./data/img/Fond.png);}");
+    ui->label->setStyleSheet("QLabel{background-color:rgba(255,255,255,0);background-image : url(./data/img/FOND-COURSE.png);}");
+    ui->previousButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/GFLECHE.png);}QPushButton::hover{background-image : url(./data/img/GFLECHE-COULEUR.png);}");
+    ui->nextButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/DFLECHE.png);}QPushButton::hover{background-image : url(./data/img/DFLECHE-COULEUR.png);}");
+    ui->backButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/BACK.png);}QPushButton::hover{background-image : url(./data/img/BACK-COULEUR.png);}");
+    ui->startButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/START.png);}QPushButton::hover{background-image : url(./data/img/START-COULEUR.png);}");
     ui->trackPicture->setPixmap(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack());
     ui->trackName->setText(m_trackList->currentTrackName());
 

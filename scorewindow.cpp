@@ -22,6 +22,10 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
     ui(new Ui::ScoreWindow)
 {
     ui->setupUi(this);
+    this->setStyleSheet("#ScoreWindow{background-image : url(./data/img/Fond.png);}");
+    ui->pushButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);background-image:url(./data/img/CONTINUE.png);} QPushButton::hover{background-image:url(./data/img/CONTINUE-COULEUR.png);}");
+    ui->label->setStyleSheet("QLabel#label{background-image:url(./data/img/FOND-SCORE.png);}");
+
     load();
     m_rank = ranked();
     if(m_rank<10)
@@ -34,7 +38,6 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
             m_scoreVector.remove(10);
         }
         ui->textLabel->setText("Good Game ! you're in the position : " + QString::number(m_rank+1) + ".Your time is : "+ utils::showableTime(m_time) + ". Please enter your name to save this time :" );
-        ui->pushButton->setText("Confirm & Back to the menu");
         ui->nameText->insertPlainText("YOURNAME");
     }
     else

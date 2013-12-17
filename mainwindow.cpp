@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_videoWidget(nullptr)
 {
     ui->setupUi(this);
+    this->setWindowTitle("- Sirtoli Racing -");
 
     if(!m_videoWidget)
     {

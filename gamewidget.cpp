@@ -31,15 +31,15 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
 
         //Placement du label du timer
         m_timeLabel.setGeometry(0,0,500,50);
-        m_timeLabel.setStyleSheet("color: rgb(255, 47, 28);font: 24pt \"MS Shell Dlg 2\";");
+        m_timeLabel.setStyleSheet("color: white;font: 24pt \"Leelawadee UI\";");
 
         //Placement du label du nombre de checkpoints restants
         m_checkpointRemainingLabel.setGeometry(parent->width()-220,0,220,50);
-        m_checkpointRemainingLabel.setStyleSheet("color: rgb(255, 47, 28);font: 14pt \"MS Shell Dlg 2\";");
+        m_checkpointRemainingLabel.setStyleSheet("color: white;font: 14pt \"Leelawadee UI\";");
 
         //Placement du label du affichant le temps avant le début de la partie
         m_timeBeforeStartLabel.setGeometry(350,250,100,100);
-        m_timeBeforeStartLabel.setStyleSheet("color: rgb(255, 47, 28);font: 72pt \"MS Shell Dlg 2\";");
+        m_timeBeforeStartLabel.setStyleSheet("font: 72pt \"Leelawadee UI\";");
 
         // prépare la scène pour l'affichage
         this->setScene(scene->graphicsScene());
@@ -198,7 +198,7 @@ void GameWidget::timerEvent(QTimerEvent *timerEvent)
                     m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));
 
                     /// mise à jour du nombre de checkpoint restant (Affichage)
-                    QString checkpointRemainingString = "Checkpoint Restant(s) :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
+                    QString checkpointRemainingString = "Checkpoint Remaining :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
                     m_checkpointRemainingLabel.setText(checkpointRemainingString);
                 }
             }

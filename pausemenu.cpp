@@ -4,20 +4,18 @@
 
 PauseMenu::PauseMenu(const int time, QWidget *parent): Panel(parent), m_time(time)
 {
-    this->setGeometry(200,175,400,250);
-    this->setStyleSheet("background:black;");
+    this->setGeometry(200,150,400,300);
+    this->setStyleSheet("background-image:url(./data/img/FOND-PAUSE.png);");
 
 
     m_continueButton = new QPushButton(this);
-    m_continueButton->setText("Continue");
-    m_continueButton->setGeometry(25,50,350,50);
-    m_continueButton->setStyleSheet("background:white");
+    m_continueButton->setGeometry(75,50,260,50);
+    m_continueButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);background-image:url(./data/img/CONTINUE.png);} QPushButton::hover{background-image:url(./data/img/CONTINUE-COULEUR.png);}");
     connect(m_continueButton,SIGNAL(clicked()),this,SLOT(continueClicked()));
 
     m_quitButton = new QPushButton(this);
-    m_quitButton->setText("Quit to main menu");
-    m_quitButton->setGeometry(25,150,350,50);
-    m_quitButton->setStyleSheet("background:white");
+    m_quitButton->setGeometry(125,175,178,50);
+    m_quitButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);background-image:url(./data/img/QUIT.png);} QPushButton::hover{background-image:url(./data/img/QUIT-COULEUR.png);}");
     connect(m_quitButton,SIGNAL(clicked()),this,SLOT(quitClicked()));
 }
 

@@ -4,6 +4,7 @@
 #include "scene.h"
 #include <QCoreApplication>
 #include <QMessageBox>
+#include <time.h>
 
 Object* TreeFactory::create() const
 {
@@ -13,7 +14,9 @@ Object* TreeFactory::create() const
         return nullptr;
 
     // création de la partie visible
-    QPixmap *pixmap = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tree128.png");
+    srand(time(nullptr));
+    int numTree = rand()%2+1;
+    QPixmap *pixmap = new QPixmap(QCoreApplication::applicationDirPath() + "/data/tree128_"+QString::number(numTree)+".png");
     if (pixmap->isNull())
     {
         QMessageBox::information(nullptr, "Erreur", "L'image n'est pas trouvée!");

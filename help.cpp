@@ -6,6 +6,8 @@ Help::Help(QWidget *parent) :
     ui(new Ui::Help)
 {
     ui->setupUi(this);
+    this->setStyleSheet("#Help{background-image : url(./data/img/Fond.png);}");
+    ui->pushButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/BACK.png);}QPushButton::hover{background-image : url(./data/img/BACK-COULEUR.png);}");
     ui->label->setPixmap(QCoreApplication::applicationDirPath() + "/data/img/N.png");
     ui->label_3->setPixmap(QCoreApplication::applicationDirPath() + "/data/img/P.png");
     ui->label_5->setPixmap(QCoreApplication::applicationDirPath() + "/data/img/Esc.png");

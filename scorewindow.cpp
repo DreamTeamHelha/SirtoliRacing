@@ -22,6 +22,7 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
 {
     ui->setupUi(this);
 
+
     this->setStyleSheet("#ScoreWindow{background-image : url(./data/img/Fond.png);}");
     ui->pushButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);background-image:url(./data/img/CONTINUE.png);} QPushButton::hover{background-image:url(./data/img/CONTINUE-COULEUR.png);}");
     ui->label->setStyleSheet("QLabel#label{background-image:url(./data/img/FOND-SCORE.png);}");

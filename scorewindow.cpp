@@ -165,7 +165,6 @@ void ScoreWindow::loaded(QString, QVector<Score *> scores)
             m_scoreVector.remove(10);
         }
         ui->textLabel->setText("Good Game ! you're in the position : " + QString::number(m_rank+1) + ".Your time is : "+ utils::showableTime(m_time) + ". Please enter your name to save this time :" );
-        ui->pushButton->setText("Confirm & Back to the menu");
         ui->nameText->insertPlainText("YOURNAME");
     }
     else

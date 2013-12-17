@@ -94,11 +94,11 @@ private:
 
     Ui::MainWindow *ui;
     QMediaPlaylist *m_playlist;//point de playliste
-    QMediaPlayer *m_player;//le player celui
-    QVideoWidget *m_videoWidget;
+    QMediaPlayer *m_player;//le player
+    QVideoWidget *m_videoWidget;//utiliser pour la video
     Panel      *m_panel;
-    GameWidget *m_gameWidget;
-    bool m_musicPlay;
+    GameWidget *m_gameWidget;//panel affiche le jeu
+    bool m_musicPlay;//verification si la musique est jouer ou pas
 
 };
 

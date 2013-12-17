@@ -49,6 +49,6 @@ public:
 
 private:
 
-    QGraphicsItem   *m_graphicsItem;
-    b2Body          *m_physicsBody;
+    QGraphicsItem   *m_graphicsItem;//composant graphique de l'objet
+    b2Body          *m_physicsBody;//composant physique de l'objet
 };

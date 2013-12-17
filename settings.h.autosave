@@ -1,0 +1,22 @@
+#ifndef SETTINGS_H
+#define SETTINGS_H
+
+class Settings
+{
+public:
+    Settings();
+    bool dynamicZoom()const
+    {
+        return m_dynamicZoom;
+    }
+    //modifie si le zoom auto est check
+    void setDynamicZoom(bool dynamicZoom)
+    {
+        m_dynamicZoom=dynamicZoom;
+    }
+
+private :
+    bool m_dynamicZoom;//condition si il faut activer le zoom
+};
+
+#endif // SETTINGS_H

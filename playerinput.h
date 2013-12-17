@@ -26,9 +26,9 @@ public:
 
 private:
 
-    bool m_throttle;
-    bool m_brakes;
-    bool m_turnLeft;
-    bool m_turnRight;
-    bool m_pause;
+    bool m_throttle;//condition accelerer
+    bool m_brakes;// condition freiner
+    bool m_turnLeft;//condition tourner gauche
+    bool m_turnRight;//condition tourner a droite
+    bool m_pause;// condition avec pause
 };

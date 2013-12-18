@@ -244,7 +244,7 @@ View Scene::calcViewPoint()
         // calcul du zoom
         if (m_dynamicZoom)
         {
-            float velocity = (Vector(m_car->physicsBody()->GetLinearVelocity()).length() / 1500.f) + 1;
+            float velocity = (Vector(m_car->physicsBody()->GetLinearVelocity()).length() / 700.f) + 1;
             if (velocity > 0)
             {
                 view.setZoom(1 / velocity);

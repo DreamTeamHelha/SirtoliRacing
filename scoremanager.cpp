@@ -5,6 +5,12 @@
 #include <QByteArray>
 #include <QNetworkRequest>
 
+// Fonction locale à ce fichier
+bool scoreLessThan(const Score *score1, const Score *score2)
+{
+    return (*score1<*score2);
+}
+
 const QString ScoreManager::m_baseUrl = "http://193.190.66.14:6080/SirtoliRacing/";
 
 ScoreManager::ScoreManager(QObject *parent) :
@@ -96,6 +102,7 @@ void ScoreManager::replyFinised(QNetworkReply * reply)
                             jObject["Name"].toString());
                     scores.append(score);
                 }
+                qSort(scores.begin(),scores.end(),scoreLessThan);
 
                 emit scoreReceived(m_trackName, scores);
             }

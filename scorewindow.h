@@ -30,7 +30,6 @@ private slots:
     void loaded(QString, QVector<Score*>);
 
     /// Appelé lors d'une erreur du scoreManager.
-    /// Affiche le message dans une MessageBox.
     void error(QString);
 
     void addScore();

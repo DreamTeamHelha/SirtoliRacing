@@ -14,7 +14,8 @@
 
 ScoreWidget::ScoreWidget(QWidget *parent) :
     Panel(parent),
-    ui(new Ui::ScoreWidget)
+    ui(new Ui::ScoreWidget),
+     m_scoreManager(new ScoreManager(this))
 {
     ui->setupUi(this);
 
@@ -30,7 +31,11 @@ ScoreWidget::ScoreWidget(QWidget *parent) :
     ui->previousButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/GFLECHE.png);}QPushButton::hover{background-image : url(./data/img/GFLECHE-COULEUR.png);}");
     ui->nextButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/DFLECHE.png);}QPushButton::hover{background-image : url(./data/img/DFLECHE-COULEUR.png);}");
     ui->trackName->setText(m_trackList->currentTrackName());
-    load();
+    m_scoreManager->getScores(m_trackList->currentTrack());
+
+    connect(m_scoreManager, SIGNAL(scoreReceived(QString,QVector<Score*>)), this, SLOT(loaded(QString,QVector<Score*>)));
+    connect(m_scoreManager, SIGNAL(error(QString)), this, SLOT(error(QString)));
+
 }
 
 
@@ -38,6 +43,7 @@ ScoreWidget::~ScoreWidget()
 {
     delete ui;
     delete m_trackList;
+    delete m_scoreManager;
 }
 
 void ScoreWidget::afficherMenu()
@@ -45,27 +51,21 @@ void ScoreWidget::afficherMenu()
     emit showPanel("Menu");
 }
 
-void ScoreWidget::load()
+void ScoreWidget::loadTableView()
 {
-    //Lecture du fichier de score
-
-
     QStandardItemModel *model= new QStandardItemModel(0,0,0);
-
     QList<QStandardItem*> colTime;
     QList<QStandardItem*> colName;
 
-    //Remplissage de la liste des scores dans la listView
-    QJsonArray root = utils::readJsonFile(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack() +".score");
-    for(int i=0;i<root.count();i++)
+    QStandardItem *item;
+    for(Score * score: m_scoreVector)
     {
-        QJsonObject item =root[i].toObject();
+        item = new QStandardItem(score->name());
+        colName.append(item);
 
-
-        colName.append( new QStandardItem(item["Name"].toString()));
-        colTime.append( new QStandardItem(utils::showableTime(item["Time"].toDouble())));
-
-     }
+        item = new QStandardItem(utils::showableTime(score->time()));
+        colTime.append(item);
+    }
     model->appendColumn(colName);
     model->appendColumn(colTime);
 
@@ -73,22 +73,37 @@ void ScoreWidget::load()
     model->setHorizontalHeaderItem(1, new QStandardItem(QString("Time")));
 
     ui->tableView->setModel(model);
-
-
 }
 void ScoreWidget::nextTrack()
 {
     m_trackList->next();
-    //ui->trackPicture->setPixmap(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack());
     ui->trackName->setText(m_trackList->currentTrackName());
-
-    load();
+    m_scoreManager->getScores(m_trackList->currentTrack());
 }
 
 void ScoreWidget::previousTrack()
 {
     m_trackList->previous();
-    //ui->trackPicture->setPixmap(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_trackList->currentTrack());
     ui->trackName->setText(m_trackList->currentTrackName());
-    load();
+    m_scoreManager->getScores(m_trackList->currentTrack());
+}
+
+void ScoreWidget::loaded(QString trackName, QVector<Score *> scores)
+{
+    if(trackName == m_trackList->currentTrack())
+    {
+        m_scoreVector = scores;
+        loadTableView();
+    }
+    else
+    {
+        m_scoreManager->getScores(m_trackList->currentTrack());
+    }
+
+}
+
+void ScoreWidget::error(QString errorMsg)
+{
+    std::cout << "Erreur : " << errorMsg.toStdString() << std::endl;
+    loadTableView();
 }

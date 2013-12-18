@@ -34,7 +34,7 @@ GameWidget::GameWidget(Scene *scene, QWidget *parent) :
         m_timeLabel.setStyleSheet("color: white;font: 24pt \"Leelawadee UI\";");
 
         //Placement du label du nombre de checkpoints restants
-        m_checkpointRemainingLabel.setGeometry(parent->width()-220,0,220,50);
+        m_checkpointRemainingLabel.setGeometry(parent->width()-250,0,250,50);
         m_checkpointRemainingLabel.setStyleSheet("color: white;font: 14pt \"Leelawadee UI\";");
 
         //Placement du label du affichant le temps avant le début de la partie

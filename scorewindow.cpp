@@ -12,12 +12,12 @@
 #include <QList>
 #include <QVector>
 
-ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
+ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed, QString track) :
     Panel(parent),
+    ui(new Ui::ScoreWindow),
     m_time(timeElapsed),
     m_track(track),
     m_rank(10),
-    ui(new Ui::ScoreWindow),
     m_scoreManager(new ScoreManager(this))
 {
     ui->setupUi(this);
@@ -31,29 +31,6 @@ ScoreWindow::ScoreWindow(QWidget *parent,int timeElapsed,QString track) :
     connect(m_scoreManager, SIGNAL(error(QString)), this, SLOT(error(QString)));
 
     m_scoreManager->getScores(m_track);
-    /*
-    load();
-    m_rank = ranked();
-    if(m_rank<10)
-    {
-        connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(addScore()));
-        m_scoreVector.insert(m_rank,new Score(m_time,"YOURNAME"));
-        if(m_scoreVector.size()>10)
-        {
-            delete m_scoreVector[10];
-            m_scoreVector.remove(10);
-        }
-        ui->textLabel->setText("Good Game ! you're in the position : " + QString::number(m_rank+1) + ".Your time is : "+ utils::showableTime(m_time) + ". Please enter your name to save this time :" );
-        ui->nameText->insertPlainText("YOURNAME");
-    }
-    else
-    {
-        connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(backToMenu()));
-        ui->nameText->hide();
-    }
-
-    loadTableView();
-    //*/
 }
 
 ScoreWindow::~ScoreWindow()
@@ -72,64 +49,30 @@ void ScoreWindow::addScore()
 
     m_scoreManager->sendScores(m_track, m_scoreVector);
     connect(m_scoreManager, SIGNAL(scoreSent()), this, SLOT(backToMenu()));
-    /*
-    QJsonArray array;
-
-    for(Score*  score: m_scoreVector)
-    {
-        QJsonObject object;
-        object.insert("Name",score->name());
-        object.insert("Time",score->time());
-        array.append(object);
-    }
-
-    QFile file(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_track +".score");
-    file.open(QFile::WriteOnly | QFile::Truncate);
-    if(!file.isOpen())
-    {
-        QMessageBox::information(nullptr, "Erreur", "Le fichier de score n'est pas trouve!");
-    }
-
-    file.write(QJsonDocument(array).toJson());
-
-    emit showPanel("Menu");
-    /*/
-}
-
-void ScoreWindow::load()
-{
-
-    QJsonArray root = utils::readJsonFile(QCoreApplication::applicationDirPath() + "/data/tracks/" + m_track +".score");
-    for(int i=0;i<root.count();i++)
-    {
-        QJsonObject item =root[i].toObject();
-        Score * score = new Score(item["Time"].toDouble(),item["Name"].toString());
-        m_scoreVector.append(score);
-     }
 }
 
 void ScoreWindow::loadTableView()
 {
     QStandardItemModel *model= new QStandardItemModel(0,0,0);
     QList<QStandardItem*> colTime;
-     QList<QStandardItem*> colName;
+    QList<QStandardItem*> colName;
 
-     QStandardItem *item;
-     for(Score * score: m_scoreVector)
-     {
-         item = new QStandardItem(score->name());
-         colName.append(item);
+    QStandardItem *item;
+    for(Score * score: m_scoreVector)
+    {
+        item = new QStandardItem(score->name());
+        colName.append(item);
 
-         item = new QStandardItem(utils::showableTime(score->time()));
-         colTime.append(item);
-     }
-      model->appendColumn(colName);
-      model->appendColumn(colTime);
+        item = new QStandardItem(utils::showableTime(score->time()));
+        colTime.append(item);
+    }
+    model->appendColumn(colName);
+    model->appendColumn(colTime);
 
-      model->setHorizontalHeaderItem(0, new QStandardItem(QString("Name")));
-      model->setHorizontalHeaderItem(1, new QStandardItem(QString("Time")));
+    model->setHorizontalHeaderItem(0, new QStandardItem(QString("Name")));
+    model->setHorizontalHeaderItem(1, new QStandardItem(QString("Time")));
 
-      ui->tableView->setModel(model);
+    ui->tableView->setModel(model);
 }
 
 int ScoreWindow::ranked() const
@@ -178,7 +121,9 @@ void ScoreWindow::loaded(QString, QVector<Score *> scores)
 
 void ScoreWindow::error(QString errorMsg)
 {
-    // NOTE: on devrait ptêt aussi connecter le bouton pour qu'il fasse retour en cas d'erreur,
-    //       pour ne pas être bloqué sur cette page.
-    QMessageBox::information(this, "Error", errorMsg, 0);
+    std::cout << "Erreur : " << errorMsg.toStdString() << std::endl;
+    ui->textLabel->setText("Unable to get scores from the server; Your progess cannot be saved.");
+    m_scoreVector.append(new Score(m_time, "YOURNAME"));
+    loadTableView();
+    connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(backToMenu()));
 }

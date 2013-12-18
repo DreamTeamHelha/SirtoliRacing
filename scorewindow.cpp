@@ -122,8 +122,8 @@ void ScoreWindow::loaded(QString, QVector<Score *> scores)
 
 void ScoreWindow::error(QString errorMsg)
 {
-    std::cout << "Erreur : " << errorMsg.toStdString() << std::endl;
     ui->textLabel->setText("Unable to get scores from the server; Your progess cannot be saved.");
+    ui->label->hide();
     m_scoreVector.append(new Score(m_time, "YOURNAME"));
     loadTableView();
     connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(backToMenu()));

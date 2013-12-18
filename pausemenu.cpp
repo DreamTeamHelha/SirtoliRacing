@@ -9,12 +9,12 @@ PauseMenu::PauseMenu(const int time, QWidget *parent): Panel(parent), m_time(tim
 
 
     m_continueButton = new QPushButton(this);
-    m_continueButton->setGeometry(75,50,260,50);
+    m_continueButton->setGeometry(75,50,254,50);
     m_continueButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);background-image:url(./data/img/CONTINUE.png);} QPushButton::hover{background-image:url(./data/img/CONTINUE-COULEUR.png);}");
     connect(m_continueButton,SIGNAL(clicked()),this,SLOT(continueClicked()));
 
     m_quitButton = new QPushButton(this);
-    m_quitButton->setGeometry(125,175,178,50);
+    m_quitButton->setGeometry(125,175,160,55);
     m_quitButton->setStyleSheet("QPushButton{background-color:rgba(255,255,255,0);background-image:url(./data/img/QUIT.png);} QPushButton::hover{background-image:url(./data/img/QUIT-COULEUR.png);}");
     connect(m_quitButton,SIGNAL(clicked()),this,SLOT(quitClicked()));
 }

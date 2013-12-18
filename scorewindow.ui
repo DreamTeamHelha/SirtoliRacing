@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QTableView" name="tableView">
    <property name="enabled">
     <bool>false</bool>
@@ -37,25 +40,6 @@
    </property>
    <property name="text">
     <string/>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="nameText">
-   <property name="geometry">
-    <rect>
-     <x>590</x>
-     <y>20</y>
-     <width>131</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>Leelawadee UI</family>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color:white;background-color:rgba(255,255,255,0);</string>
    </property>
   </widget>
   <widget class="QLabel" name="textLabel">
@@ -93,11 +77,24 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLineEdit" name="nameText">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>30</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:white;background-color:rgba(255,255,255,0);</string>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>tableView</zorder>
   <zorder>pushButton</zorder>
-  <zorder>nameText</zorder>
   <zorder>textLabel</zorder>
+  <zorder>nameText</zorder>
  </widget>
  <resources/>
  <connections/>

@@ -45,7 +45,7 @@ ScoreWindow::~ScoreWindow()
 
 void ScoreWindow::addScore()
 {
-    m_scoreVector[m_rank]->setName(ui->nameText->toPlainText());
+    m_scoreVector[m_rank]->setName(ui->nameText->text());
 
     m_scoreManager->sendScores(m_track, m_scoreVector);
     connect(m_scoreManager, SIGNAL(scoreSent()), this, SLOT(backToMenu()));
@@ -108,7 +108,7 @@ void ScoreWindow::loaded(QString, QVector<Score *> scores)
             m_scoreVector.remove(10);
         }
         ui->textLabel->setText("Good Game ! you're in the position : " + QString::number(m_rank+1) + ".Your time is : "+ utils::showableTime(m_time) + ". Please enter your name to save this time :" );
-        ui->nameText->insertPlainText("YOURNAME");
+        ui->nameText->insert("YOURNAME");
     }
     else
     {

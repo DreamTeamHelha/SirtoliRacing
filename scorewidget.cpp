@@ -31,7 +31,9 @@ ScoreWidget::ScoreWidget(QWidget *parent) :
     ui->previousButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/GFLECHE.png);}QPushButton::hover{background-image : url(./data/img/GFLECHE-COULEUR.png);}");
     ui->nextButton->setStyleSheet("QPushButton{background-color:rgba(255, 255, 255, 0);background-image : url(./data/img/DFLECHE.png);}QPushButton::hover{background-image : url(./data/img/DFLECHE-COULEUR.png);}");
     ui->trackName->setText(m_trackList->currentTrackName());
+    ui->label_2->hide();
     m_scoreManager->getScores(m_trackList->currentTrack());
+
 
     connect(m_scoreManager, SIGNAL(scoreReceived(QString,QVector<Score*>)), this, SLOT(loaded(QString,QVector<Score*>)));
     connect(m_scoreManager, SIGNAL(error(QString)), this, SLOT(error(QString)));
@@ -94,6 +96,7 @@ void ScoreWidget::loaded(QString trackName, QVector<Score *> scores)
     {
         m_scoreVector = scores;
         loadTableView();
+        ui->label_2->hide();
     }
     else
     {
@@ -102,8 +105,8 @@ void ScoreWidget::loaded(QString trackName, QVector<Score *> scores)
 
 }
 
-void ScoreWidget::error(QString errorMsg)
+void ScoreWidget::error(QString)
 {
-    std::cout << "Erreur : " << errorMsg.toStdString() << std::endl;
-    loadTableView();
+    ui->label_2->show();
+    ui->tableView->setModel(new QStandardItemModel(0,0,0));
 }

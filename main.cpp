@@ -5,6 +5,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QMessageBox>
+#include <QLayout>
 
 int main(int argc, char ** argv)
 {
@@ -15,9 +16,8 @@ int main(int argc, char ** argv)
 
     // création de la fenêtre et exécution
     MainWindow w;
+    w.setFixedSize(800,600);
     w.show();
-    w.setMaximumSize(800,600);
-    w.setMinimumSize(800,600);
     w.setWindowIcon(QIcon(QCoreApplication::applicationDirPath()+"/data/icon.ico"));
 
     int returnCode = app.exec();

@@ -112,6 +112,7 @@ void ScoreWindow::loaded(QString, QVector<Score *> scores)
     }
     else
     {
+        ui->textLabel->setText("Sorry you aren't in the top 10. Your time is : "+ utils::showableTime(m_time) + "." );
         connect(ui->pushButton,SIGNAL(clicked()),this,SLOT(backToMenu()));
         ui->nameText->hide();
     }

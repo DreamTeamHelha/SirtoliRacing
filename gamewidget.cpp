@@ -198,7 +198,7 @@ void GameWidget::timerEvent(QTimerEvent *timerEvent)
                     m_timeLabel.setText(utils::showableTime(m_scene->time().elapsed()));
 
                     /// mise à jour du nombre de checkpoint restant (Affichage)
-                    QString checkpointRemainingString = "Checkpoint Remaining :"+QString::number(m_scene->checkpointListener()->checkpointRemaining());
+                    QString checkpointRemainingString = "Checkpoint(s) Remaining : "+QString::number(m_scene->checkpointListener()->checkpointRemaining());
                     m_checkpointRemainingLabel.setText(checkpointRemainingString);
                 }
             }

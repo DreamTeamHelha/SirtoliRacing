@@ -21,7 +21,6 @@ public:
     explicit ScoreWindow(QWidget *parent = 0,int time =0,QString track = "noTrack");
     ~ScoreWindow();
 
-    void load(); // inutilisé
     void loadTableView();
     int  ranked() const;
 
